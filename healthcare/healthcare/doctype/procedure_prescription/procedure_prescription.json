@@ -18,7 +18,7 @@
   "procedure_created",
   "invoiced",
   "section_break_ggcp",
-  "patient_care_type",
+  "beneficiary_care_type",
   "column_break_ld7o",
   "intent",
   "priority"
@@ -94,10 +94,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "patient_care_type",
+   "fieldname": "beneficiary_care_type",
    "fieldtype": "Link",
-   "label": "Patient Care Type",
-   "options": "Patient Care Type"
+   "label": "Beneficiary Care Type",
+   "options": "Beneficiary Care Type"
   },
   {
    "fieldname": "column_break_ld7o",

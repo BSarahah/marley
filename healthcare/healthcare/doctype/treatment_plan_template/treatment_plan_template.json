@@ -16,11 +16,11 @@
   "practitioners",
   "order_group",
   "section_break_8",
-  "patient_age_from",
+  "beneficiary_age_from",
   "complaints",
   "diagnosis",
   "column_break_12",
-  "patient_age_to",
+  "beneficiary_age_to",
   "gender",
   "ivestigation_procedures_tab",
   "medications_section",
@@ -61,7 +61,7 @@
    "fieldname": "order_group",
    "fieldtype": "Link",
    "label": "Order Group",
-   "options": "Patient Encounter",
+   "options": "Beneficiary Encounter",
    "read_only": 1
   },
   {
@@ -78,9 +78,9 @@
    "unique": 1
   },
   {
-   "fieldname": "patient_age_from",
+   "fieldname": "beneficiary_age_from",
    "fieldtype": "Int",
-   "label": "Patient Age From",
+   "label": "Beneficiary Age From",
    "non_negative": 1
   },
   {
@@ -88,9 +88,9 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "patient_age_to",
+   "fieldname": "beneficiary_age_to",
    "fieldtype": "Int",
-   "label": "Patient Age To",
+   "label": "Beneficiary Age To",
    "non_negative": 1
   },
   {
@@ -103,13 +103,13 @@
    "fieldname": "complaints",
    "fieldtype": "Table MultiSelect",
    "label": "Complaints",
-   "options": "Patient Encounter Symptom"
+   "options": "Beneficiary Encounter Symptom"
   },
   {
    "fieldname": "diagnosis",
    "fieldtype": "Table MultiSelect",
    "label": "Diagnosis",
-   "options": "Patient Encounter Diagnosis"
+   "options": "Beneficiary Encounter Diagnosis"
   },
   {
    "fieldname": "plan_items_section",

@@ -44,16 +44,16 @@ class HealthcareServiceUnit(NestedSet):
 		if cint(self.is_group):
 			self.allow_appointments = False
 			self.overlap_appointments = False
-			self.inpatient_occupancy = False
+			self.inbeneficiary_occupancy = False
 			self.service_unit_capacity = 0
 			self.occupancy_status = ""
 			self.service_unit_type = ""
 		elif self.service_unit_type != "":
 			service_unit_type = frappe.get_doc("Healthcare Service Unit Type", self.service_unit_type)
 			self.allow_appointments = service_unit_type.allow_appointments
-			self.inpatient_occupancy = service_unit_type.inpatient_occupancy
+			self.inbeneficiary_occupancy = service_unit_type.inbeneficiary_occupancy
 
-			if self.inpatient_occupancy and self.occupancy_status != "":
+			if self.inbeneficiary_occupancy and self.occupancy_status != "":
 				self.occupancy_status = "Vacant"
 
 			if service_unit_type.overlap_appointments:

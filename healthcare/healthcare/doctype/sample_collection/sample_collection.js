@@ -61,20 +61,20 @@ frappe.ui.form.on('Sample Collection', {
 		}
 	},
 
-	patient: function(frm) {
-		if(frm.doc.patient){
+	beneficiary: function(frm) {
+		if(frm.doc.beneficiary){
 			frappe.call({
-				'method': 'healthcare.healthcare.doctype.patient.patient.get_patient_detail',
+				'method': 'healthcare.healthcare.doctype.beneficiary.beneficiary.get_beneficiary_detail',
 				args: {
-					patient: frm.doc.patient
+					beneficiary: frm.doc.beneficiary
 				},
 				callback: function (data) {
 					var age = null;
 					if (data.message.dob){
 						age = calculate_age(data.message.dob);
 					}
-					frappe.model.set_value(frm.doctype,frm.docname, 'patient_age', age);
-					frappe.model.set_value(frm.doctype,frm.docname, 'patient_sex', data.message.sex);
+					frappe.model.set_value(frm.doctype,frm.docname, 'beneficiary_age', age);
+					frappe.model.set_value(frm.doctype,frm.docname, 'beneficiary_sex', data.message.sex);
 				}
 			});
 		}

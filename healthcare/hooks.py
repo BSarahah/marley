@@ -109,9 +109,9 @@ override_doctype_class = {
 
 doc_events = {
 	"*": {
-		"on_submit": "healthcare.healthcare.doctype.patient_history_settings.patient_history_settings.create_medical_record",
-		"on_cancel": "healthcare.healthcare.doctype.patient_history_settings.patient_history_settings.delete_medical_record",
-		"on_update_after_submit": "healthcare.healthcare.doctype.patient_history_settings.patient_history_settings.update_medical_record",
+		"on_submit": "healthcare.healthcare.doctype.beneficiary_history_settings.beneficiary_history_settings.create_medical_record",
+		"on_cancel": "healthcare.healthcare.doctype.beneficiary_history_settings.beneficiary_history_settings.delete_medical_record",
+		"on_update_after_submit": "healthcare.healthcare.doctype.beneficiary_history_settings.beneficiary_history_settings.update_medical_record",
 	},
 	"Sales Invoice": {
 		"on_submit": "healthcare.healthcare.utils.manage_invoice_submit_cancel",
@@ -122,17 +122,17 @@ doc_events = {
 		"after_insert": "healthcare.healthcare.utils.create_healthcare_service_unit_tree_root",
 		"on_trash": "healthcare.healthcare.utils.company_on_trash",
 	},
-	"Patient": {
+	"Beneficiary": {
 		"after_insert": "healthcare.regional.india.abdm.utils.set_consent_attachment_details"
 	},
 }
 
 scheduler_events = {
 	"all": [
-		"healthcare.healthcare.doctype.patient_appointment.patient_appointment.send_appointment_reminder",
+		"healthcare.healthcare.doctype.beneficiary_appointment.beneficiary_appointment.send_appointment_reminder",
 	],
 	"daily": [
-		"healthcare.healthcare.doctype.patient_appointment.patient_appointment.update_appointment_status",
+		"healthcare.healthcare.doctype.beneficiary_appointment.beneficiary_appointment.update_appointment_status",
 		"healthcare.healthcare.doctype.fee_validity.fee_validity.update_validity_status",
 	],
 }
@@ -180,7 +180,7 @@ before_tests = "healthcare.healthcare.utils.before_tests"
 # exempt linked doctypes from being automatically cancelled
 #
 auto_cancel_exempted_doctypes = [
-	"Inpatient Medication Entry",
+	"Inbeneficiary Medication Entry",
 ]
 
 # User Data Protection
@@ -216,20 +216,20 @@ auto_cancel_exempted_doctypes = [
 
 global_search_doctypes = {
 	"Healthcare": [
-		{"doctype": "Patient", "index": 1},
+		{"doctype": "Beneficiary", "index": 1},
 		{"doctype": "Medical Department", "index": 2},
 		{"doctype": "Vital Signs", "index": 3},
 		{"doctype": "Healthcare Practitioner", "index": 4},
-		{"doctype": "Patient Appointment", "index": 5},
+		{"doctype": "Beneficiary Appointment", "index": 5},
 		{"doctype": "Healthcare Service Unit", "index": 6},
-		{"doctype": "Patient Encounter", "index": 7},
+		{"doctype": "Beneficiary Encounter", "index": 7},
 		{"doctype": "Antibiotic", "index": 8},
 		{"doctype": "Diagnosis", "index": 9},
 		{"doctype": "Lab Test", "index": 10},
 		{"doctype": "Clinical Procedure", "index": 11},
-		{"doctype": "Inpatient Record", "index": 12},
+		{"doctype": "Inbeneficiary Record", "index": 12},
 		{"doctype": "Sample Collection", "index": 13},
-		{"doctype": "Patient Medical Record", "index": 14},
+		{"doctype": "Beneficiary Medical Record", "index": 14},
 		{"doctype": "Appointment Type", "index": 15},
 		{"doctype": "Fee Validity", "index": 16},
 		{"doctype": "Practitioner Schedule", "index": 17},
@@ -252,34 +252,34 @@ standard_portal_menu_items = [
 	{
 		"title": "Personal Details",
 		"route": "/personal-details",
-		"reference_doctype": "Patient",
-		"role": "Patient",
+		"reference_doctype": "Beneficiary",
+		"role": "Beneficiary",
 	},
 	{
 		"title": "Lab Test",
 		"route": "/lab-test",
 		"reference_doctype": "Lab Test",
-		"role": "Patient",
+		"role": "Beneficiary",
 	},
 	{
 		"title": "Prescription",
 		"route": "/prescription",
-		"reference_doctype": "Patient Encounter",
-		"role": "Patient",
+		"reference_doctype": "Beneficiary Encounter",
+		"role": "Beneficiary",
 	},
 	{
-		"title": "Patient Appointment",
-		"route": "/patient-appointments",
-		"reference_doctype": "Patient Appointment",
-		"role": "Patient",
+		"title": "Beneficiary Appointment",
+		"route": "/beneficiary-appointments",
+		"reference_doctype": "Beneficiary Appointment",
+		"role": "Beneficiary",
 	},
 ]
 
 has_website_permission = {
 	"Lab Test": "healthcare.healthcare.web_form.lab_test.lab_test.has_website_permission",
-	"Patient Encounter": "healthcare.healthcare.web_form.prescription.prescription.has_website_permission",
-	"Patient Appointment": "healthcare.healthcare.web_form.patient_appointments.patient_appointments.has_website_permission",
-	"Patient": "healthcare.healthcare.web_form.personal_details.personal_details.has_website_permission",
+	"Beneficiary Encounter": "healthcare.healthcare.web_form.prescription.prescription.has_website_permission",
+	"Beneficiary Appointment": "healthcare.healthcare.web_form.beneficiary_appointments.beneficiary_appointments.has_website_permission",
+	"Beneficiary": "healthcare.healthcare.web_form.personal_details.personal_details.has_website_permission",
 }
 
 standard_queries = {

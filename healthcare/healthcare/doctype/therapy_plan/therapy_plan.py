@@ -54,13 +54,13 @@ class TherapyPlan(Document):
 
 
 @frappe.whitelist()
-def make_therapy_session(therapy_plan, patient, therapy_type, company, appointment=None):
+def make_therapy_session(therapy_plan, beneficiary, therapy_type, company, appointment=None):
 	therapy_type = frappe.get_doc("Therapy Type", therapy_type)
 
 	therapy_session = frappe.new_doc("Therapy Session")
 	therapy_session.therapy_plan = therapy_plan
 	therapy_session.company = company
-	therapy_session.patient = patient
+	therapy_session.beneficiary = beneficiary
 	therapy_session.therapy_type = therapy_type.name
 	therapy_session.duration = therapy_type.default_duration
 	therapy_session.rate = therapy_type.rate
@@ -78,13 +78,13 @@ def make_therapy_session(therapy_plan, patient, therapy_type, company, appointme
 
 
 @frappe.whitelist()
-def make_sales_invoice(reference_name, patient, company, therapy_plan_template):
+def make_sales_invoice(reference_name, beneficiary, company, therapy_plan_template):
 	from erpnext.stock.get_item_details import get_item_details
 
 	si = frappe.new_doc("Sales Invoice")
 	si.company = company
-	si.patient = patient
-	si.customer = frappe.db.get_value("Patient", patient, "customer")
+	si.beneficiary = beneficiary
+	si.customer = frappe.db.get_value("Beneficiary", beneficiary, "customer")
 
 	item = frappe.db.get_value("Therapy Plan Template", therapy_plan_template, "linked_item")
 	price_list, price_list_currency = frappe.db.get_values(

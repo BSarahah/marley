@@ -8,12 +8,12 @@ from frappe.utils import now_datetime
 from healthcare.healthcare.doctype.clinical_procedure.test_clinical_procedure import (
 	create_procedure,
 )
-from healthcare.healthcare.doctype.inpatient_record.inpatient_record import (
-	admit_patient,
-	discharge_patient,
+from healthcare.healthcare.doctype.inbeneficiary_record.inbeneficiary_record import (
+	admit_beneficiary,
+	discharge_beneficiary,
 )
-from healthcare.healthcare.doctype.inpatient_record.test_inpatient_record import (
-	create_inpatient,
+from healthcare.healthcare.doctype.inbeneficiary_record.test_inbeneficiary_record import (
+	create_inbeneficiary,
 	get_healthcare_service_unit,
 )
 from healthcare.healthcare.doctype.lab_test.test_lab_test import (
@@ -21,7 +21,7 @@ from healthcare.healthcare.doctype.lab_test.test_lab_test import (
 	create_lab_test_template,
 )
 from healthcare.healthcare.doctype.nursing_task.nursing_task import NursingTask
-from healthcare.healthcare.doctype.patient_appointment.test_patient_appointment import (
+from healthcare.healthcare.doctype.beneficiary_appointment.test_beneficiary_appointment import (
 	create_clinical_procedure_template,
 	create_healthcare_docs,
 )
@@ -45,7 +45,7 @@ class TestNursingTask(FrappeTestCase):
 		self.settings.validate_nursing_checklists = 1
 		self.settings.save()
 
-		self.patient, self.practitioner = create_healthcare_docs()
+		self.beneficiary, self.practitioner = create_healthcare_docs()
 
 	def test_lab_test_submission_should_validate_pending_nursing_tasks(self):
 		self.lt_template = create_lab_test_template()
@@ -69,17 +69,17 @@ class TestNursingTask(FrappeTestCase):
 		procedure_template.pre_op_nursing_checklist_template = self.nc_template.name
 		procedure_template.save()
 
-		procedure = create_procedure(procedure_template, self.patient, self.practitioner)
+		procedure = create_procedure(procedure_template, self.beneficiary, self.practitioner)
 		self.assertRaises(frappe.ValidationError, procedure.start_procedure)
 
 		complete_nusing_tasks(procedure)
 		procedure.start_procedure()
 
-	def test_admit_inpatient_should_validate_pending_nursing_tasks(self):
+	def test_admit_inbeneficiary_should_validate_pending_nursing_tasks(self):
 		self.settings.allow_discharge_despite_unbilled_services = 1
 		self.settings.save()
 
-		ip_record = create_inpatient(self.patient)
+		ip_record = create_inbeneficiary(self.beneficiary)
 		ip_record.admission_nursing_checklist_template = self.nc_template.name
 		ip_record.expected_length_of_stay = 0
 		ip_record.save(ignore_permissions=True)
@@ -89,14 +89,14 @@ class TestNursingTask(FrappeTestCase):
 
 		service_unit = get_healthcare_service_unit()
 		kwargs = {
-			"inpatient_record": ip_record,
+			"inbeneficiary_record": ip_record,
 			"service_unit": service_unit,
 			"check_in": now_datetime(),
 		}
-		self.assertRaises(frappe.ValidationError, admit_patient, **kwargs)
+		self.assertRaises(frappe.ValidationError, admit_beneficiary, **kwargs)
 
 		complete_nusing_tasks(ip_record)
-		admit_patient(**kwargs)
+		admit_beneficiary(**kwargs)
 
 		ip_record.discharge_nursing_checklist_template = self.nc_template.name
 		ip_record.save()
@@ -104,10 +104,10 @@ class TestNursingTask(FrappeTestCase):
 			ip_record.admission_nursing_checklist_template, ip_record, start_time=now_datetime()
 		)
 
-		self.assertRaises(frappe.ValidationError, discharge_patient, inpatient_record=ip_record)
+		self.assertRaises(frappe.ValidationError, discharge_beneficiary, inbeneficiary_record=ip_record)
 
 		complete_nusing_tasks(ip_record)
-		discharge_patient(ip_record)
+		discharge_beneficiary(ip_record)
 
 	def test_submit_therapy_session_should_validate_pending_nursing_tasks(self):
 		therapy_type = create_therapy_type()
@@ -115,7 +115,7 @@ class TestNursingTask(FrappeTestCase):
 		therapy_type.save()
 
 		therapy_plan = create_therapy_plan()
-		therapy_session = create_therapy_session(self.patient, therapy_type.name, therapy_plan.name)
+		therapy_session = create_therapy_session(self.beneficiary, therapy_type.name, therapy_plan.name)
 
 		self.assertRaises(frappe.ValidationError, therapy_session.submit)
 
@@ -133,15 +133,15 @@ def complete_nusing_tasks(document):
 	for task_name in tasks:
 		task = frappe.get_doc("Nursing Task", task_name)
 		task.status = "Completed"
-		task.task_document_name = create_vital_signs(document.patient)
+		task.task_document_name = create_vital_signs(document.beneficiary)
 		task.save()
 
 
-def create_vital_signs(patient):
+def create_vital_signs(beneficiary):
 	return frappe.get_doc(
 		{
 			"doctype": "Vital Signs",
-			"patient": patient,
+			"beneficiary": beneficiary,
 			"signs_date": frappe.utils.nowdate(),
 			"signs_time": frappe.utils.nowtime(),
 			"bp_systolic": 120,

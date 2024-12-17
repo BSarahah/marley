@@ -7,9 +7,9 @@ from frappe.model.document import Document
 
 class Specimen(Document):
 	def before_insert(self):
-		patient_doc = frappe.get_doc("Patient", self.patient)
-		if patient_doc.dob:
-			self.patient_age = patient_doc.calculate_age().get("age_in_string")
+		beneficiary_doc = frappe.get_doc("Beneficiary", self.beneficiary)
+		if beneficiary_doc.dob:
+			self.beneficiary_age = beneficiary_doc.calculate_age().get("age_in_string")
 
 	def after_insert(self):
 		self.db_set("barcode", self.name)

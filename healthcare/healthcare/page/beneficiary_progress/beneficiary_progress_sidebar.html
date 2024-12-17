@@ -1,0 +1,29 @@
+<div class="beneficiary-progress-sidebar">
+	<div class="beneficiary-image-container">
+		{% if beneficiary_image %}
+			<div class="beneficiary-image" src={{beneficiary_image}} style="background-image: url(\'{%= beneficiary_image %}\')"></div>
+		{% endif %}
+	</div>
+	<div class="beneficiary-details">
+		{% if beneficiary_name %}
+		<p class="beneficiary-name bold">{{beneficiary_name}}</p>
+		{% endif %}
+		{% if beneficiary_gender %}
+		<p class="beneficiary-gender text-muted">{%=__("Gender: ") %} {{beneficiary_gender}}</p>
+		{% endif %}
+		{% if beneficiary_mobile %}
+		<p class="beneficiary-mobile text-muted">{%=__("Contact: ") %} {{beneficiary_mobile}}</p>
+		{% endif %}
+		{% if total_therapy_sessions %}
+		<p class="beneficiary-sessions text-muted">{%=__("Total Therapy Sessions: ") %} {{total_therapy_sessions}}</p>
+		{% endif %}
+		{% if therapy_sessions_this_month %}
+		<p class="beneficiary-sessions text-muted">{%=__("Monthly Therapy Sessions: ") %} {{therapy_sessions_this_month}}</p>
+		{% endif %}
+	</div>
+	<div class="important-links">
+		<p><a class="beneficiary-profile-link">{%=__("Beneficiary Profile") %}</a></p>
+		<p><a class="therapy-plan-link">{%=__("Therapy Plan") %}</a></p>
+		<p><a class="beneficiary-history">{%=__("Beneficiary History") %}</a></p>
+	</div>
+</div>

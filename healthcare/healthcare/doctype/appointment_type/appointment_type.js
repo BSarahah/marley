@@ -53,7 +53,7 @@ frappe.ui.form.on('Appointment Type', {
 			};
 		});
 
-		frm.set_query('inpatient_visit_charge_item', 'items', function() {
+		frm.set_query('inbeneficiary_visit_charge_item', 'items', function() {
 			return {
 				filters: {
 					is_stock_item: 0
@@ -86,22 +86,22 @@ frappe.ui.form.on('Appointment Type Service Item', {
 		}
 	},
 
-	inpatient_visit_charge_item: function(frm, cdt, cdn) {
+	inbeneficiary_visit_charge_item: function(frm, cdt, cdn) {
 		let d = locals[cdt][cdn];
-		if (frm.doc.price_list && d.inpatient_visit_charge_item) {
+		if (frm.doc.price_list && d.inbeneficiary_visit_charge_item) {
 			frappe.call({
 				'method': 'frappe.client.get_value',
 				args: {
 					'doctype': 'Item Price',
 					'filters': {
-						'item_code': d.inpatient_visit_charge_item,
+						'item_code': d.inbeneficiary_visit_charge_item,
 						'price_list': frm.doc.price_list
 					},
 					'fieldname': ['price_list_rate']
 				},
 				callback: function (data) {
 					if (data.message.price_list_rate) {
-						frappe.model.set_value(cdt, cdn, 'inpatient_visit_charge', data.message.price_list_rate);
+						frappe.model.set_value(cdt, cdn, 'inbeneficiary_visit_charge', data.message.price_list_rate);
 					}
 				}
 			});

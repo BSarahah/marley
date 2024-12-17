@@ -26,7 +26,7 @@ frappe.ui.form.on('Lab Test', {
 		frm.set_query('service_request', function() {
 			return {
 				filters: {
-					'patient': frm.doc.patient,
+					'beneficiary': frm.doc.beneficiary,
 					'status': 'Active',
 					'docstatus': 1,
 					'template_dt': 'Lab Test template'
@@ -39,7 +39,7 @@ frappe.ui.form.on('Lab Test', {
 		refresh_field('normal_test_items');
 		refresh_field('descriptive_test_items');
 		if (frm.doc.__islocal) {
-			frm.add_custom_button(__('Get from Patient Encounter'), function () {
+			frm.add_custom_button(__('Get from Beneficiary Encounter'), function () {
 				get_lab_test_prescribed(frm);
 			});
 		}
@@ -119,19 +119,19 @@ frappe.ui.form.on('Lab Test', {
 });
 
 
-frappe.ui.form.on('Lab Test', 'patient', function (frm) {
-	if (frm.doc.patient) {
+frappe.ui.form.on('Lab Test', 'beneficiary', function (frm) {
+	if (frm.doc.beneficiary) {
 		frappe.call({
-			'method': 'healthcare.healthcare.doctype.patient.patient.get_patient_detail',
-			args: { patient: frm.doc.patient },
+			'method': 'healthcare.healthcare.doctype.beneficiary.beneficiary.get_beneficiary_detail',
+			args: { beneficiary: frm.doc.beneficiary },
 			callback: function (data) {
 				var age = null;
 				if (data.message.dob) {
 					age = calculate_age(data.message.dob);
 				}
 				let values = {
-					'patient_age': age,
-					'patient_sex': data.message.sex,
+					'beneficiary_age': age,
+					'beneficiary_sex': data.message.sex,
 					'email': data.message.email,
 					'mobile': data.message.mobile,
 					'report_preference': data.message.report_preference
@@ -175,17 +175,17 @@ var status_update = function (approve, frm) {
 };
 
 var get_lab_test_prescribed = function (frm) {
-	if (frm.doc.patient) {
+	if (frm.doc.beneficiary) {
 		frappe.call({
 			method: 'healthcare.healthcare.doctype.lab_test.lab_test.get_lab_test_prescribed',
-			args: { patient: frm.doc.patient },
+			args: { beneficiary: frm.doc.beneficiary },
 			callback: function (r) {
 				show_lab_tests(frm, r.message);
 			}
 		});
 	}
 	else {
-		frappe.msgprint(__('Please select Patient to get Lab Tests'));
+		frappe.msgprint(__('Please select Beneficiary to get Lab Tests'));
 	}
 };
 
@@ -219,7 +219,7 @@ var show_lab_tests = function (frm, lab_test_list) {
 			frm.doc.service_request = $(this).attr('data-name');
 			frm.doc.practitioner = $(this).attr('data-practitioner');
 			frm.set_df_property('template', 'read_only', 1);
-			frm.set_df_property('patient', 'read_only', 1);
+			frm.set_df_property('beneficiary', 'read_only', 1);
 			frm.set_df_property('practitioner', 'read_only', 1);
 			frm.doc.invoiced = 0;
 			if ($(this).attr('data-invoiced') === "Invoiced") {
@@ -233,7 +233,7 @@ var show_lab_tests = function (frm, lab_test_list) {
 		});
 	});
 	if (!lab_test_list.length) {
-		var msg = __('No Lab Tests found for the Patient {0}', [frm.doc.patient_name.bold()]);
+		var msg = __('No Lab Tests found for the Beneficiary {0}', [frm.doc.beneficiary_name.bold()]);
 		html_field.empty();
 		$(repl('<div class="col-xs-12" style="padding-top:0px;" >%(msg)s</div>', { msg: msg })).appendTo(html_field);
 	}
@@ -296,7 +296,7 @@ var send_sms = function (vals, frm) {
 	var message = vals.message.last_value;
 
 	if (!number || !message) {
-		frappe.throw(__('Did not send SMS, missing patient mobile number or message content.'));
+		frappe.throw(__('Did not send SMS, missing beneficiary mobile number or message content.'));
 	}
 	frappe.call({
 		method: 'frappe.core.doctype.sms_settings.sms_settings.send_sms',

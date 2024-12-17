@@ -8,17 +8,17 @@
  "document_type": "Document",
  "engine": "InnoDB",
  "field_order": [
-  "patient_details_section",
+  "beneficiary_details_section",
   "naming_series",
-  "patient",
-  "patient_name",
-  "patient_age",
-  "patient_sex",
+  "beneficiary",
+  "beneficiary_name",
+  "beneficiary_age",
+  "beneficiary_sex",
   "referring_practitioner",
   "column_break_4",
   "company",
   "status",
-  "inpatient_record",
+  "inbeneficiary_record",
   "collection_point",
   "invoiced",
   "section_break_6",
@@ -41,13 +41,13 @@
  ],
  "fields": [
   {
-   "fetch_from": "patient.inpatient_record",
-   "fieldname": "inpatient_record",
+   "fetch_from": "beneficiary.inbeneficiary_record",
+   "fieldname": "inbeneficiary_record",
    "fieldtype": "Link",
    "hide_days": 1,
    "hide_seconds": 1,
-   "label": "Inpatient Record",
-   "options": "Inpatient Record",
+   "label": "Inbeneficiary Record",
+   "options": "Inbeneficiary Record",
    "read_only": 1
   },
   {
@@ -74,15 +74,15 @@
    "search_index": 1
   },
   {
-   "fetch_from": ".patient",
-   "fieldname": "patient",
+   "fetch_from": ".beneficiary",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "hide_days": 1,
    "hide_seconds": 1,
    "ignore_user_permissions": 1,
    "in_standard_filter": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "read_only_depends_on": "eval:[\"Partly Collected\", \"Collected\"].includes(doc.status);",
    "reqd": 1,
    "search_index": 1
@@ -94,7 +94,7 @@
    "hide_seconds": 1
   },
   {
-   "fieldname": "patient_age",
+   "fieldname": "beneficiary_age",
    "fieldtype": "Data",
    "hide_days": 1,
    "hide_seconds": 1,
@@ -103,8 +103,8 @@
    "read_only": 1
   },
   {
-   "fetch_from": "patient.sex",
-   "fieldname": "patient_sex",
+   "fetch_from": "beneficiary.sex",
+   "fieldname": "beneficiary_sex",
    "fieldtype": "Link",
    "hide_days": 1,
    "hide_seconds": 1,
@@ -213,16 +213,16 @@
    "label": "Collection Details"
   },
   {
-   "fieldname": "patient_details_section",
+   "fieldname": "beneficiary_details_section",
    "fieldtype": "Section Break",
-   "label": "Patient Details"
+   "label": "Beneficiary Details"
   },
   {
-   "fetch_from": "patient.patient_name",
-   "fieldname": "patient_name",
+   "fetch_from": "beneficiary.beneficiary_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Patient Name",
+   "label": "Beneficiary Name",
    "read_only": 1
   },
   {
@@ -330,12 +330,12 @@
   }
  ],
  "restrict_to_domain": "Healthcare",
- "search_fields": "patient, sample",
+ "search_fields": "beneficiary, sample",
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "patient",
+ "title_field": "beneficiary",
  "track_changes": 1,
  "track_seen": 1
 }

@@ -20,8 +20,8 @@
   "medical_department",
   "amended_from",
   "section_break_i70a",
-  "patient",
-  "patient_name",
+  "beneficiary",
+  "beneficiary_name",
   "column_break_qxq5",
   "age",
   "gender",
@@ -111,12 +111,12 @@
    "read_only_depends_on": "eval:doc.docstatus==1;"
   },
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "reqd": 1
   },
   {
@@ -156,7 +156,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "patient.sex",
+   "fetch_from": "beneficiary.sex",
    "fieldname": "gender",
    "fieldtype": "Link",
    "label": "Gender",
@@ -219,10 +219,10 @@
    "read_only": 1
   },
   {
-   "fetch_from": "patient.patient_name",
-   "fieldname": "patient_name",
+   "fetch_from": "beneficiary.beneficiary_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Patient Name"
+   "label": "Beneficiary Name"
   },
   {
    "fieldname": "column_break_wwnp",

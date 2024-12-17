@@ -11,19 +11,19 @@ from frappe.model.rename_doc import rename_doc
 
 class HealthcareServiceUnitType(Document):
 	def validate(self):
-		if self.allow_appointments and self.inpatient_occupancy:
+		if self.allow_appointments and self.inbeneficiary_occupancy:
 			frappe.msgprint(
 				_("Healthcare Service Unit Type cannot have both {0} and {1}").format(
-					frappe.bold("Allow Appointments"), frappe.bold("Inpatient Occupancy")
+					frappe.bold("Allow Appointments"), frappe.bold("Inbeneficiary Occupancy")
 				),
 				raise_exception=1,
 				title=_("Validation Error"),
 				indicator="red",
 			)
-		elif not self.allow_appointments and not self.inpatient_occupancy:
+		elif not self.allow_appointments and not self.inbeneficiary_occupancy:
 			frappe.msgprint(
 				_("Healthcare Service Unit Type must allow atleast one among {0} and {1}").format(
-					frappe.bold("Allow Appointments"), frappe.bold("Inpatient Occupancy")
+					frappe.bold("Allow Appointments"), frappe.bold("Inbeneficiary Occupancy")
 				),
 				raise_exception=1,
 				title=_("Validation Error"),
@@ -39,7 +39,7 @@ class HealthcareServiceUnitType(Document):
 			else:
 				frappe.db.set_value("Item", self.item, "disabled", 0)
 
-		if self.inpatient_occupancy and self.is_billable and not self.item:
+		if self.inbeneficiary_occupancy and self.is_billable and not self.item:
 			self.create_service_unit_item()
 
 	def on_trash(self):

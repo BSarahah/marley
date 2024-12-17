@@ -12,10 +12,10 @@ from healthcare.healthcare.doctype.healthcare_settings.healthcare_settings impor
 	get_receivable_account,
 )
 from healthcare.healthcare.doctype.lab_test.lab_test import create_multiple
-from healthcare.healthcare.doctype.patient_appointment.test_patient_appointment import (
-	create_patient,
+from healthcare.healthcare.doctype.beneficiary_appointment.test_beneficiary_appointment import (
+	create_beneficiary,
 )
-from healthcare.healthcare.doctype.patient_medical_record.test_patient_medical_record import (
+from healthcare.healthcare.doctype.beneficiary_medical_record.test_beneficiary_medical_record import (
 	create_lab_test_template as create_blood_test_template,
 )
 
@@ -83,14 +83,14 @@ class TestLabTest(FrappeTestCase):
 		self.assertIsNotNone(sales_invoice.items[0].reference_dn)
 		self.assertIsNotNone(sales_invoice.items[1].reference_dn)
 
-	def test_create_lab_tests_from_patient_encounter(self):
-		patient_encounter = create_patient_encounter()
-		create_multiple("Patient Encounter", patient_encounter.name)
-		patient_encounter.reload()
+	def test_create_lab_tests_from_beneficiary_encounter(self):
+		beneficiary_encounter = create_beneficiary_encounter()
+		create_multiple("Beneficiary Encounter", beneficiary_encounter.name)
+		beneficiary_encounter.reload()
 		service_requests = frappe.db.get_list(
 			"Service Request",
 			filters={
-				"order_group": patient_encounter.name,
+				"order_group": beneficiary_encounter.name,
 				"status": ["!=", "Completed"],
 				"template_dt": "Lab Test Template",
 			},
@@ -99,8 +99,8 @@ class TestLabTest(FrappeTestCase):
 		if service_requests:
 			for service_request in service_requests:
 				self.assertTrue(frappe.db.exists("Lab Test", {"service_request": service_request.get("name")}))
-		# self.assertTrue(patient_encounter.lab_test_prescription[0].lab_test_created)
-		# self.assertTrue(patient_encounter.lab_test_prescription[0].lab_test_created)
+		# self.assertTrue(beneficiary_encounter.lab_test_prescription[0].lab_test_created)
+		# self.assertTrue(beneficiary_encounter.lab_test_prescription[0].lab_test_created)
 
 
 def create_lab_test_template(test_sensitivity=0, sample_collection=1):
@@ -145,11 +145,11 @@ def create_medical_department():
 
 
 def create_lab_test(lab_template):
-	patient = create_patient()
+	beneficiary = create_beneficiary()
 	lab_test = frappe.new_doc("Lab Test")
 	lab_test.template = lab_template.name
-	lab_test.patient = patient
-	lab_test.patient_sex = "Female"
+	lab_test.beneficiary = beneficiary
+	lab_test.beneficiary_sex = "Female"
 	lab_test.save()
 
 	return lab_test
@@ -169,14 +169,14 @@ def create_lab_test_sample():
 
 
 def create_sales_invoice():
-	patient = create_patient()
+	beneficiary = create_beneficiary()
 	medical_department = create_medical_department()
 	insulin_resistance_template = create_lab_test_template()
 	blood_test_template = create_blood_test_template(medical_department)
 
 	sales_invoice = frappe.new_doc("Sales Invoice")
-	sales_invoice.patient = patient
-	sales_invoice.customer = frappe.db.get_value("Patient", patient, "customer")
+	sales_invoice.beneficiary = beneficiary
+	sales_invoice.customer = frappe.db.get_value("Beneficiary", beneficiary, "customer")
 	sales_invoice.due_date = getdate()
 	sales_invoice.company = "_Test Company"
 	sales_invoice.debit_to = get_receivable_account("_Test Company")
@@ -204,26 +204,26 @@ def create_sales_invoice():
 	return sales_invoice
 
 
-def create_patient_encounter():
-	patient = create_patient()
+def create_beneficiary_encounter():
+	beneficiary = create_beneficiary()
 	medical_department = create_medical_department()
 	insulin_resistance_template = create_lab_test_template()
 	blood_test_template = create_blood_test_template(medical_department)
 
-	patient_encounter = frappe.new_doc("Patient Encounter")
-	patient_encounter.patient = patient
-	patient_encounter.practitioner = create_practitioner()
-	patient_encounter.encounter_date = getdate()
-	patient_encounter.encounter_time = nowtime()
+	beneficiary_encounter = frappe.new_doc("Beneficiary Encounter")
+	beneficiary_encounter.beneficiary = beneficiary
+	beneficiary_encounter.practitioner = create_practitioner()
+	beneficiary_encounter.encounter_date = getdate()
+	beneficiary_encounter.encounter_time = nowtime()
 
 	tests = [insulin_resistance_template, blood_test_template]
 	for entry in tests:
-		patient_encounter.append(
+		beneficiary_encounter.append(
 			"lab_test_prescription", {"lab_test_code": entry.item, "lab_test_name": entry.lab_test_name}
 		)
 
-	patient_encounter.submit()
-	return patient_encounter
+	beneficiary_encounter.submit()
+	return beneficiary_encounter
 
 
 def create_practitioner():
@@ -234,7 +234,7 @@ def create_practitioner():
 		practitioner.first_name = "_Test Healthcare Practitioner"
 		practitioner.gender = "Female"
 		practitioner.op_consulting_charge = 500
-		practitioner.inpatient_visit_charge = 500
+		practitioner.inbeneficiary_visit_charge = 500
 		practitioner.save(ignore_permissions=True)
 		practitioner = practitioner.name
 

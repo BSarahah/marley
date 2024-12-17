@@ -88,7 +88,7 @@ frappe.ui.form.on('Healthcare Practitioner', {
 			};
 		});
 
-		set_query_service_item(frm, 'inpatient_visit_charge_item');
+		set_query_service_item(frm, 'inbeneficiary_visit_charge_item');
 		set_query_service_item(frm, 'op_consulting_charge_item');
 	},
 
@@ -216,22 +216,22 @@ frappe.tour['Healthcare Practitioner'] = [
 	},
 	{
 		fieldname: 'op_consulting_charge_item',
-		title: __('Out Patient Consulting Charge Item'),
-		description: __('Create and link a service item to be billed for Out Patient Consulting.')
+		title: __('Out Beneficiary Consulting Charge Item'),
+		description: __('Create and link a service item to be billed for Out Beneficiary Consulting.')
 	},
 	{
-		fieldname: 'inpatient_visit_charge_item',
-		title: __('Inpatient Visit Charge Item'),
-		description: __('If this Healthcare Practitioner works for the In-Patient Department, create a service item for Inpatient Visits.')
+		fieldname: 'inbeneficiary_visit_charge_item',
+		title: __('Inbeneficiary Visit Charge Item'),
+		description: __('If this Healthcare Practitioner works for the In-Beneficiary Department, create a service item for Inbeneficiary Visits.')
 	},
 	{
 		fieldname: 'op_consulting_charge',
-		title: __('Out Patient Consulting Charge'),
-		description: __('Set the Out Patient Consulting Charge for this Practitioner.')
+		title: __('Out Beneficiary Consulting Charge'),
+		description: __('Set the Out Beneficiary Consulting Charge for this Practitioner.')
 	},
 	{
-		fieldname: 'inpatient_visit_charge',
-		title: __('Inpatient Visit Charge'),
-		description: __('If this Healthcare Practitioner also works for the In-Patient Department, set the inpatient visit charge for this Practitioner.')
+		fieldname: 'inbeneficiary_visit_charge',
+		title: __('Inbeneficiary Visit Charge'),
+		description: __('If this Healthcare Practitioner also works for the In-Beneficiary Department, set the inbeneficiary visit charge for this Practitioner.')
 	}
 ];

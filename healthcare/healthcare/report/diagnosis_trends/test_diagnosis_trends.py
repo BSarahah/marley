@@ -3,7 +3,7 @@ from frappe import DuplicateEntryError
 from frappe.tests.utils import FrappeTestCase
 from frappe.utils import add_days, add_months, getdate
 
-from healthcare.healthcare.doctype.patient_appointment.test_patient_appointment import (
+from healthcare.healthcare.doctype.beneficiary_appointment.test_beneficiary_appointment import (
 	create_practitioner,
 )
 from healthcare.healthcare.report.diagnosis_trends.diagnosis_trends import execute
@@ -27,14 +27,14 @@ class TestDiagnosisTrends(FrappeTestCase):
 		except DuplicateEntryError:
 			pass
 
-		patient = frappe.get_list("Patient")[0]
+		beneficiary = frappe.get_list("Beneficiary")[0]
 		practitioner_name = create_practitioner(medical_department=medical_department.name)
 		encounter_cardiology = create_encounter(
-			patient=patient.name,
+			beneficiary=beneficiary.name,
 			practitioner=practitioner_name,
 		)
 		encounter = frappe.get_list(
-			"Patient Encounter",
+			"Beneficiary Encounter",
 		)[0]
 
 		try:
@@ -59,7 +59,7 @@ class TestDiagnosisTrends(FrappeTestCase):
 		except DuplicateEntryError:
 			pass
 
-		encounter = frappe.get_doc("Patient Encounter", encounter["name"])
+		encounter = frappe.get_doc("Beneficiary Encounter", encounter["name"])
 		encounter.append(
 			"diagnosis",
 			{

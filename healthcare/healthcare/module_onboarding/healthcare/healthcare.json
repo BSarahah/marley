@@ -20,7 +20,7 @@
  "owner": "Administrator",
  "steps": [
   {
-   "step": "Create Patient"
+   "step": "Create Beneficiary"
   },
   {
    "step": "Create Practitioner Schedule"
@@ -38,7 +38,7 @@
    "step": "Explore Clinical Procedure Templates"
   }
  ],
- "subtitle": "Patients, Practitioner Schedules, Settings, and more.",
+ "subtitle": "Beneficiarys, Practitioner Schedules, Settings, and more.",
  "success_message": "The Healthcare Module is all set up!",
  "title": "Let's Set Up the Healthcare Module."
 }

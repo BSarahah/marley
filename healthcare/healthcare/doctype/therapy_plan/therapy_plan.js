@@ -34,7 +34,7 @@ frappe.ui.form.on('Therapy Plan', {
 							method: 'healthcare.healthcare.doctype.therapy_plan.therapy_plan.make_therapy_session',
 							args: {
 								therapy_plan: frm.doc.name,
-								patient: frm.doc.patient,
+								beneficiary: frm.doc.beneficiary,
 								therapy_type: data.therapy_type,
 								company: frm.doc.company
 							},
@@ -71,7 +71,7 @@ frappe.ui.form.on('Therapy Plan', {
 		frappe.call({
 			args: {
 				'reference_name': frm.doc.name,
-				'patient': frm.doc.patient,
+				'beneficiary': frm.doc.beneficiary,
 				'company': frm.doc.company,
 				'therapy_plan_template': frm.doc.therapy_plan_template
 			},

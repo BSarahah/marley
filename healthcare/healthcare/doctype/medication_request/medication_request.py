@@ -16,7 +16,7 @@ class MedicationRequest(ServiceRequestController):
 	def set_title(self):
 		if frappe.flags.in_import and self.title:
 			return
-		self.title = f"{self.patient_name} - {self.medication or self.medication_item}"
+		self.title = f"{self.beneficiary_name} - {self.medication or self.medication_item}"
 
 	def before_insert(self):
 		self.calculate_total_dispensable_quantity()

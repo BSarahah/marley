@@ -32,7 +32,7 @@ frappe.ui.form.on('Therapy Session', {
 		frm.set_query('service_request', function() {
 			return {
 				filters: {
-					'patient': frm.doc.patient,
+					'beneficiary': frm.doc.beneficiary,
 					'status': 'Active',
 					'docstatus': 1,
 					'template_dt': 'Therapy Type'
@@ -64,9 +64,9 @@ frappe.ui.form.on('Therapy Session', {
 		}
 
 		if (frm.doc.docstatus === 1) {
-			frm.add_custom_button(__('Patient Assessment'), function() {
+			frm.add_custom_button(__('Beneficiary Assessment'), function() {
 				frappe.model.open_mapped_doc({
-					method: 'healthcare.healthcare.doctype.patient_assessment.patient_assessment.create_patient_assessment',
+					method: 'healthcare.healthcare.doctype.beneficiary_assessment.beneficiary_assessment.create_beneficiary_assessment',
 					frm: frm,
 				})
 			}, 'Create');
@@ -108,12 +108,12 @@ frappe.ui.form.on('Therapy Session', {
 		});
 	},
 
-	patient: function(frm) {
-		if (frm.doc.patient) {
+	beneficiary: function(frm) {
+		if (frm.doc.beneficiary) {
 			frappe.call({
-				'method': 'healthcare.healthcare.doctype.patient.patient.get_patient_detail',
+				'method': 'healthcare.healthcare.doctype.beneficiary.beneficiary.get_beneficiary_detail',
 				args: {
-					patient: frm.doc.patient
+					beneficiary: frm.doc.beneficiary
 				},
 				callback: function (data) {
 					let age = '';
@@ -125,15 +125,15 @@ frappe.ui.form.on('Therapy Session', {
 							age = __('{0} as on {1}', [age, data.message.age_as_on]);
 						}
 					}
-					frm.set_value('patient_age', age);
+					frm.set_value('beneficiary_age', age);
 					frm.set_value('gender', data.message.sex);
-					frm.set_value('patient_name', data.message.patient_name);
+					frm.set_value('beneficiary_name', data.message.beneficiary_name);
 				}
 			});
 		} else {
-			frm.set_value('patient_age', '');
+			frm.set_value('beneficiary_age', '');
 			frm.set_value('gender', '');
-			frm.set_value('patient_name', '');
+			frm.set_value('beneficiary_name', '');
 		}
 	},
 
@@ -142,12 +142,12 @@ frappe.ui.form.on('Therapy Session', {
 			frappe.call({
 				'method': 'frappe.client.get',
 				args: {
-					doctype: 'Patient Appointment',
+					doctype: 'Beneficiary Appointment',
 					name: frm.doc.appointment
 				},
 				callback: function(data) {
 					let values = {
-						'patient':data.message.patient,
+						'beneficiary':data.message.beneficiary,
 						'therapy_type': data.message.therapy_type,
 						'therapy_plan': data.message.therapy_plan,
 						'practitioner': data.message.practitioner,

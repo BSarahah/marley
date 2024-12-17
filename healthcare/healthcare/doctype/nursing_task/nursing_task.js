@@ -12,7 +12,7 @@ frappe.ui.form.on('Nursing Task', {
 				'company': frm.doc.company,
 				'medical_department': frm.doc.medical_department,
 				'service_unit': frm.doc.service_unit,
-				'patient': frm.doc.patient,
+				'beneficiary': frm.doc.beneficiary,
 			};
 		};
 
@@ -24,8 +24,8 @@ frappe.ui.form.on('Nursing Task', {
 			// set filters
 			let filters = {};
 			frappe.model.with_doctype(frm.doc.task_doctype, function() {
-				if (frappe.meta.has_field(frm.doc.task_doctype, 'patient')) {
-					filters['patient'] = frm.doc.patient;
+				if (frappe.meta.has_field(frm.doc.task_doctype, 'beneficiary')) {
+					filters['beneficiary'] = frm.doc.beneficiary;
 				}
 
 				frm.set_query('task_document_name', () => {
@@ -93,7 +93,7 @@ frappe.ui.form.on('Nursing Task', {
 
 			frm.add_custom_button(__(`New ${frm.doc.task_doctype}`), () => {
 				frappe.route_options = {
-					'patient': frm.doc.patient,
+					'beneficiary': frm.doc.beneficiary,
 					'medical_department': frm.doc.medical_department,
 					'company': frm.doc.company,
 					'service_unit': frm.doc.service_unit,

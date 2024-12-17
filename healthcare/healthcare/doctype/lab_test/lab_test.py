@@ -117,7 +117,7 @@ def before_insert(self):
 
 def create_test_from_template(lab_test):
 	template = frappe.get_doc("Lab Test Template", lab_test.template)
-	patient = frappe.get_doc("Patient", lab_test.patient)
+	beneficiary = frappe.get_doc("Beneficiary", lab_test.beneficiary)
 
 	lab_test.lab_test_name = template.lab_test_name
 	lab_test.result_date = getdate()
@@ -127,7 +127,7 @@ def create_test_from_template(lab_test):
 	lab_test.result_legend = template.result_legend
 	lab_test.worksheet_instructions = template.worksheet_instructions
 
-	lab_test = create_sample_collection(lab_test, template, patient, None)
+	lab_test = create_sample_collection(lab_test, template, beneficiary, None)
 	load_result_format(lab_test, template, None, None)
 
 
@@ -141,14 +141,14 @@ def update_status(status, name):
 def create_multiple(doctype, docname):
 	if not doctype or not docname:
 		frappe.throw(
-			_("Sales Invoice or Patient Encounter is required to create Lab Tests"),
+			_("Sales Invoice or Beneficiary Encounter is required to create Lab Tests"),
 			title=_("Insufficient Data"),
 		)
 
 	lab_test_created = False
 	if doctype == "Sales Invoice":
 		lab_test_created = create_lab_test_from_invoice(docname)
-	elif doctype == "Patient Encounter":
+	elif doctype == "Beneficiary Encounter":
 		lab_test_created = create_lab_test_from_encounter(docname)
 
 	if lab_test_created:
@@ -159,10 +159,10 @@ def create_multiple(doctype, docname):
 
 def create_lab_test_from_encounter(encounter):
 	lab_test_created = False
-	encounter = frappe.get_doc("Patient Encounter", encounter)
+	encounter = frappe.get_doc("Beneficiary Encounter", encounter)
 
 	if encounter:
-		patient = frappe.get_doc("Patient", encounter.patient)
+		beneficiary = frappe.get_doc("Beneficiary", encounter.beneficiary)
 		service_requests = frappe.db.get_list(
 			"Service Request",
 			filters={
@@ -179,7 +179,7 @@ def create_lab_test_from_encounter(encounter):
 				if template:
 					lab_test = create_lab_test_doc(
 						encounter.practitioner,
-						patient,
+						beneficiary,
 						template,
 						encounter.company,
 						1 if service_request_doc.billing_status == "Invoiced" else 0,
@@ -197,8 +197,8 @@ def create_lab_test_from_encounter(encounter):
 def create_lab_test_from_invoice(sales_invoice):
 	lab_tests_created = False
 	invoice = frappe.get_doc("Sales Invoice", sales_invoice)
-	if invoice and invoice.patient:
-		patient = frappe.get_doc("Patient", invoice.patient)
+	if invoice and invoice.beneficiary:
+		beneficiary = frappe.get_doc("Beneficiary", invoice.beneficiary)
 		for item in invoice.items:
 			lab_test_created = 0
 			if item.reference_dt == "Service Request":
@@ -212,7 +212,7 @@ def create_lab_test_from_invoice(sales_invoice):
 				template = get_lab_test_template(item.item_code)
 				if template:
 					lab_test = create_lab_test_doc(
-						invoice.ref_practitioner, patient, template, invoice.company, True, item.service_unit
+						invoice.ref_practitioner, beneficiary, template, invoice.company, True, item.service_unit
 					)
 					if item.reference_dt == "Service Request":
 						lab_test.service_request = item.reference_dn
@@ -238,17 +238,17 @@ def get_lab_test_template(item):
 
 
 def create_lab_test_doc(
-	practitioner, patient, template, company, invoiced=False, service_unit=None
+	practitioner, beneficiary, template, company, invoiced=False, service_unit=None
 ):
 	lab_test = frappe.new_doc("Lab Test")
 	lab_test.invoiced = invoiced
 	lab_test.practitioner = practitioner
-	lab_test.patient = patient.name
-	lab_test.patient_age = patient.get_age()
-	lab_test.patient_sex = patient.sex
-	lab_test.email = patient.email
-	lab_test.mobile = patient.mobile
-	lab_test.report_preference = patient.report_preference
+	lab_test.beneficiary = beneficiary.name
+	lab_test.beneficiary_age = beneficiary.get_age()
+	lab_test.beneficiary_sex = beneficiary.sex
+	lab_test.email = beneficiary.email
+	lab_test.mobile = beneficiary.mobile
+	lab_test.report_preference = beneficiary.report_preference
 	lab_test.department = template.department
 	lab_test.template = template.name
 	lab_test.lab_test_group = template.lab_test_group
@@ -308,12 +308,12 @@ def create_descriptives(template, lab_test):
 		descriptive.template = template.name
 
 
-def create_sample_doc(template, patient, invoice, company=None):
+def create_sample_doc(template, beneficiary, invoice, company=None):
 	if template.sample:
 		sample_exists = frappe.db.exists(
 			{
 				"doctype": "Sample Collection",
-				"patient": patient.name,
+				"beneficiary": beneficiary.name,
 				"docstatus": 0,
 				"sample": template.sample,
 			}
@@ -339,9 +339,9 @@ def create_sample_doc(template, patient, invoice, company=None):
 			if invoice:
 				sample_collection.invoiced = True
 
-			sample_collection.patient = patient.name
-			sample_collection.patient_age = patient.get_age()
-			sample_collection.patient_sex = patient.sex
+			sample_collection.beneficiary = beneficiary.name
+			sample_collection.beneficiary_age = beneficiary.get_age()
+			sample_collection.beneficiary_sex = beneficiary.sex
 			sample_collection.sample = template.sample
 			sample_collection.sample_uom = template.sample_uom
 			sample_collection.sample_qty = template.sample_qty
@@ -352,9 +352,9 @@ def create_sample_doc(template, patient, invoice, company=None):
 		return sample_collection
 
 
-def create_sample_collection(lab_test, template, patient, invoice):
+def create_sample_collection(lab_test, template, beneficiary, invoice):
 	if frappe.get_cached_value("Healthcare Settings", None, "create_sample_collection_for_lab_test"):
-		sample_collection = create_sample_doc(template, patient, invoice, lab_test.company)
+		sample_collection = create_sample_doc(template, beneficiary, invoice, lab_test.company)
 		if sample_collection:
 			lab_test.sample = sample_collection.name
 			sample_collection_doc = get_link_to_form("Sample Collection", sample_collection.name)
@@ -436,14 +436,14 @@ def get_employee_by_user_id(user_id):
 
 
 @frappe.whitelist()
-def get_lab_test_prescribed(patient):
+def get_lab_test_prescribed(beneficiary):
 	hso = frappe.qb.DocType("Service Request")
 	return (
 		frappe.qb.from_(hso)
 		.select(
 			hso.template_dn, hso.order_group, hso.billing_status, hso.practitioner, hso.order_date, hso.name
 		)
-		.where(hso.patient == patient)
+		.where(hso.beneficiary == beneficiary)
 		.where(hso.status != "completed-Request Status")
 		.where(hso.template_dt == "Lab Test Template")
 		.orderby(hso.creation, order=frappe.qb.desc)

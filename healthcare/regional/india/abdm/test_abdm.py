@@ -6,7 +6,7 @@ from frappe.tests.utils import FrappeTestCase
 from healthcare.regional.india.abdm.utils import abdm_request
 
 
-class TestPatient(FrappeTestCase):
+class TestBeneficiary(FrappeTestCase):
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()

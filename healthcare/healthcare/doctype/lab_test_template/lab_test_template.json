@@ -58,7 +58,7 @@
   "legend_print_position",
   "result_legend",
   "service_request_defaults_section",
-  "patient_care_type",
+  "beneficiary_care_type",
   "staff_role",
   "column_break_34",
   "change_in_item"
@@ -388,12 +388,12 @@
    "label": "Service Request Defaults"
   },
   {
-   "fetch_from": "service_request_category.patient_care_type",
+   "fetch_from": "service_request_category.beneficiary_care_type",
    "fetch_if_empty": 1,
-   "fieldname": "patient_care_type",
+   "fieldname": "beneficiary_care_type",
    "fieldtype": "Link",
-   "label": "Patient Care Type",
-   "options": "Patient Care Type"
+   "label": "Beneficiary Care Type",
+   "options": "Beneficiary Care Type"
   },
   {
    "fieldname": "staff_role",

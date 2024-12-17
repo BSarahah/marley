@@ -7,7 +7,7 @@ import frappe
 
 from erpnext.stock.doctype.item.test_item import create_item
 
-from healthcare.healthcare.doctype.patient_appointment.test_patient_appointment import (
+from healthcare.healthcare.doctype.beneficiary_appointment.test_beneficiary_appointment import (
 	create_healthcare_docs,
 )
 from healthcare.healthcare.doctype.service_request.test_service_request import (
@@ -21,9 +21,9 @@ class TestMedicationRequest(unittest.TestCase):
 		frappe.db.sql("""delete from `tabMedication` where name = '_Test Medication'""")
 
 	def test_medication_request(self):
-		patient, practitioner = create_healthcare_docs()
+		beneficiary, practitioner = create_healthcare_docs()
 		medication = create_medication()
-		encounter = create_encounter(patient, practitioner, "drug_prescription", medication, submit=True)
+		encounter = create_encounter(beneficiary, practitioner, "drug_prescription", medication, submit=True)
 		self.assertTrue(frappe.db.exists("Medication Request", {"order_group": encounter.name}))
 		medication_request = frappe.db.get_value(
 			"Medication Request", {"order_group": encounter.name}, "name"
@@ -31,7 +31,7 @@ class TestMedicationRequest(unittest.TestCase):
 		if medication_request:
 			medication_request_doc = frappe.get_doc("Medication Request", medication_request)
 			medication_request_doc.submit()
-			create_sales_invoice(patient, medication_request_doc, medication, "drug_prescription")
+			create_sales_invoice(beneficiary, medication_request_doc, medication, "drug_prescription")
 			self.assertEqual(
 				frappe.db.get_value("Medication Request", medication_request_doc.name, "qty_invoiced"), 1
 			)

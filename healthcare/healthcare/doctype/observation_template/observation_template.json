@@ -60,7 +60,7 @@
   "conditions_tab",
   "diagnosis",
   "service_request_defaults_tab",
-  "patient_care_type",
+  "beneficiary_care_type",
   "staff_role"
  ],
  "fields": [
@@ -378,13 +378,13 @@
    "fieldname": "diagnosis",
    "fieldtype": "Table MultiSelect",
    "label": "Diagnosis",
-   "options": "Patient Encounter Diagnosis"
+   "options": "Beneficiary Encounter Diagnosis"
   },
   {
-   "fieldname": "patient_care_type",
+   "fieldname": "beneficiary_care_type",
    "fieldtype": "Link",
-   "label": "Patient Care Type",
-   "options": "Patient Care Type"
+   "label": "Beneficiary Care Type",
+   "options": "Beneficiary Care Type"
   },
   {
    "fieldname": "service_request_defaults_tab",

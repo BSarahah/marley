@@ -14,15 +14,15 @@ def get_healthcare_service_units(doctype, txt, searchfield, start, page_len, fil
 		.get_sql()
 	)
 
-	if filters and filters.get("inpatient_record"):
-		from healthcare.healthcare.doctype.inpatient_medication_entry.inpatient_medication_entry import (
+	if filters and filters.get("inbeneficiary_record"):
+		from healthcare.healthcare.doctype.inbeneficiary_medication_entry.inbeneficiary_medication_entry import (
 			get_current_healthcare_service_unit,
 		)
 
-		service_unit = get_current_healthcare_service_unit(filters.get("inpatient_record"))
+		service_unit = get_current_healthcare_service_unit(filters.get("inbeneficiary_record"))
 
-		# if the patient is admitted, then appointments should be allowed against the admission service unit,
-		# inspite of it being an Inpatient Occupancy service unit
+		# if the beneficiary is admitted, then appointments should be allowed against the admission service unit,
+		# inspite of it being an Inbeneficiary Occupancy service unit
 		if service_unit:
 			query += " and (allow_appointments = 1 or name = {service_unit})".format(
 				service_unit=frappe.db.escape(service_unit)

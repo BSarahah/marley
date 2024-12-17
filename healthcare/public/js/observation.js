@@ -98,7 +98,7 @@ healthcare.Observation = class Observation {
 					frappe.call({
 						method: "healthcare.healthcare.doctype.observation.observation.add_observation",
 						args: {
-							patient: me.frm.doc.patient,
+							beneficiary: me.frm.doc.beneficiary,
 							template: data.observation_template,
 							data_type: data.permitted_data_type || "",
 							result: result,

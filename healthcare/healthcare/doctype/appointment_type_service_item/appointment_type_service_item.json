@@ -10,8 +10,8 @@
   "op_consulting_charge_item",
   "op_consulting_charge",
   "column_break_4",
-  "inpatient_visit_charge_item",
-  "inpatient_visit_charge"
+  "inbeneficiary_visit_charge_item",
+  "inbeneficiary_visit_charge"
  ],
  "fields": [
   {
@@ -19,7 +19,7 @@
    "fieldname": "op_consulting_charge_item",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Out Patient Consulting Charge Item",
+   "label": "Out Beneficiary Consulting Charge Item",
    "options": "Item"
   },
   {
@@ -27,7 +27,7 @@
    "fieldname": "op_consulting_charge",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Out Patient Consulting Charge"
+   "label": "Out Beneficiary Consulting Charge"
   },
   {
    "fieldname": "column_break_4",
@@ -35,18 +35,18 @@
   },
   {
    "columns": 2,
-   "fieldname": "inpatient_visit_charge_item",
+   "fieldname": "inbeneficiary_visit_charge_item",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Inpatient Visit Charge Item",
+   "label": "Inbeneficiary Visit Charge Item",
    "options": "Item"
   },
   {
    "columns": 1,
-   "fieldname": "inpatient_visit_charge",
+   "fieldname": "inbeneficiary_visit_charge",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Inpatient Visit Charge"
+   "label": "Inbeneficiary Visit Charge"
   },
   {
    "columns": 2,

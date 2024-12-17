@@ -13,7 +13,7 @@ healthcare.ClinicalNotes = class ClinicalNotes {
 				method: "get_clinical_notes",
 				doc: me.frm.doc,
 				args: {
-					patient: me.frm.doc.patient
+					beneficiary: me.frm.doc.beneficiary
 				},
 				freeze: true,
 				callback: function(r) {
@@ -301,7 +301,7 @@ healthcare.Orders = class Orders {
 				primary_action: function() {
 					var data = d.get_values();
 					frappe.call({
-						method: "healthcare.healthcare.doctype.patient_encounter.patient_encounter.create_service_request_from_widget",
+						method: "healthcare.healthcare.doctype.beneficiary_encounter.beneficiary_encounter.create_service_request_from_widget",
 						args: {
 							encounter: me.frm.doc.name,
 							data: data,
@@ -337,7 +337,7 @@ healthcare.Orders = class Orders {
 						"options": "Medication",
 						onchange: function(e) {
 							frappe.call({
-								method: "healthcare.healthcare.doctype.patient_encounter.patient_encounter.get_medications",
+								method: "healthcare.healthcare.doctype.beneficiary_encounter.beneficiary_encounter.get_medications",
 								freeze: true,
 								args: {
 									medication: d.get_value("medication")
@@ -473,7 +473,7 @@ healthcare.Orders = class Orders {
 				primary_action: function() {
 					var data = d.get_values();
 					frappe.call({
-						method: "healthcare.healthcare.doctype.patient_encounter.patient_encounter.create_service_request_from_widget",
+						method: "healthcare.healthcare.doctype.beneficiary_encounter.beneficiary_encounter.create_service_request_from_widget",
 						args: {
 							encounter: me.frm.doc.name,
 							data: data,
@@ -510,7 +510,7 @@ healthcare.Orders = class Orders {
 			frappe.confirm('Are you sure you want to proceed?',
 			() => {
 				frappe.call({
-					method: "healthcare.healthcare.doctype.patient_encounter.patient_encounter.cancel_request",
+					method: "healthcare.healthcare.doctype.beneficiary_encounter.beneficiary_encounter.cancel_request",
 						freeze: true,
 						args: {
 							doctype: doctype,

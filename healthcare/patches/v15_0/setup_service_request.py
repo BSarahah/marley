@@ -6,7 +6,7 @@ from healthcare.setup import setup_service_request_masters
 
 
 def execute():
-	frappe.reload_doc("healthcare", "doctype", "Patient Care Type")
+	frappe.reload_doc("healthcare", "doctype", "Beneficiary Care Type")
 
 	setup_service_request_masters()
 

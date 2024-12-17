@@ -14,11 +14,11 @@
   "status",
   "barcode",
   "section_break_auky",
-  "patient",
-  "patient_name",
+  "beneficiary",
+  "beneficiary_name",
   "column_break_1kvr",
-  "patient_age",
-  "patient_gender",
+  "beneficiary_age",
+  "beneficiary_gender",
   "section_break_aas5",
   "note"
  ],
@@ -63,16 +63,16 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
-   "label": "Patient",
-   "options": "Patient"
+   "label": "Beneficiary",
+   "options": "Beneficiary"
   },
   {
-   "fetch_from": "patient.patient_name",
-   "fieldname": "patient_name",
+   "fetch_from": "beneficiary.beneficiary_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Patient Name",
+   "label": "Beneficiary Name",
    "read_only": 1
   },
   {
@@ -80,16 +80,16 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "patient_age",
+   "fieldname": "beneficiary_age",
    "fieldtype": "Data",
-   "label": "Patient Age",
+   "label": "Beneficiary Age",
    "read_only": 1
   },
   {
-   "fetch_from": "patient.sex",
-   "fieldname": "patient_gender",
+   "fetch_from": "beneficiary.sex",
+   "fieldname": "beneficiary_gender",
    "fieldtype": "Link",
-   "label": "Patient Gender",
+   "label": "Beneficiary Gender",
    "options": "Gender",
    "read_only": 1
   }

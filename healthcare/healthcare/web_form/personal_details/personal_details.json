@@ -10,7 +10,7 @@
  "amount_based_on_field": 0, 
  "creation": "2018-07-03 19:33:23.332661", 
  "currency": "INR", 
- "doc_type": "Patient", 
+ "doc_type": "Beneficiary", 
  "docstatus": 0, 
  "doctype": "Web Form", 
  "idx": 0, 
@@ -32,7 +32,7 @@
  "title": "Personal Details", 
  "web_form_fields": [
   {
-   "fieldname": "patient_name", 
+   "fieldname": "beneficiary_name", 
    "fieldtype": "Data", 
    "hidden": 0, 
    "label": "Full Name", 

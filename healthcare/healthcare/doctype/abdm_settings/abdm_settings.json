@@ -20,9 +20,9 @@
   "health_id_base_url",
   "consent_management_section",
   "consent_base_url",
-  "patient_consent_template_tab",
+  "beneficiary_consent_template_tab",
   "consent_section_section",
-  "patient_aadhaar_consent"
+  "beneficiary_aadhaar_consent"
  ],
  "fields": [
   {
@@ -93,19 +93,19 @@
   {
    "fieldname": "consent_section_section",
    "fieldtype": "Section Break",
-   "label": "Patient Consent Template"
+   "label": "Beneficiary Consent Template"
   },
   {
-   "description": "Patient Consent To Use Aadhaar For ABHA Creation",
-   "fieldname": "patient_aadhaar_consent",
+   "description": "Beneficiary Consent To Use Aadhaar For ABHA Creation",
+   "fieldname": "beneficiary_aadhaar_consent",
    "fieldtype": "Link",
    "label": "Aadhaar Consent Template",
    "options": "Terms and Conditions"
   },
   {
-   "fieldname": "patient_consent_template_tab",
+   "fieldname": "beneficiary_consent_template_tab",
    "fieldtype": "Tab Break",
-   "label": "Patient Consent Template"
+   "label": "Beneficiary Consent Template"
   }
  ],
  "index_web_pages_for_search": 1,

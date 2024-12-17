@@ -41,7 +41,7 @@
   "codification",
   "codification_table",
   "service_request_defaults_tab",
-  "patient_care_type",
+  "beneficiary_care_type",
   "staff_role"
  ],
  "fields": [
@@ -244,10 +244,10 @@
    "label": "Sample Collection"
   },
   {
-   "fieldname": "patient_care_type",
+   "fieldname": "beneficiary_care_type",
    "fieldtype": "Link",
-   "label": "Patient Care Type",
-   "options": "Patient Care Type"
+   "label": "Beneficiary Care Type",
+   "options": "Beneficiary Care Type"
   },
   {
    "fieldname": "staff_role",

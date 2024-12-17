@@ -27,17 +27,17 @@ var create_multiple_dialog = function (listview) {
 		title: 'Create Multiple Lab Tests',
 		width: 100,
 		fields: [
-			{ fieldtype: 'Link', label: 'Patient', fieldname: 'patient', options: 'Patient', reqd: 1 },
+			{ fieldtype: 'Link', label: 'Beneficiary', fieldname: 'beneficiary', options: 'Beneficiary', reqd: 1 },
 			{
-				fieldtype: 'Select', label: 'Invoice / Patient Encounter', fieldname: 'doctype',
-				options: '\nSales Invoice\nPatient Encounter', reqd: 1
+				fieldtype: 'Select', label: 'Invoice / Beneficiary Encounter', fieldname: 'doctype',
+				options: '\nSales Invoice\nBeneficiary Encounter', reqd: 1
 			},
 			{
 				fieldtype: 'Dynamic Link', fieldname: 'docname', options: 'doctype', reqd: 1,
 				get_query: function () {
 					return {
 						filters: {
-							'patient': dialog.get_value('patient'),
+							'beneficiary': dialog.get_value('beneficiary'),
 							'docstatus': 1
 						}
 					};

@@ -2,6 +2,6 @@
   {
     "doctype": "Treatment Plan Template",
     "template_name": "Chemo",
-    "patient_age_from": 21
+    "beneficiary_age_from": 21
   }
 ]

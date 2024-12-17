@@ -40,10 +40,10 @@ class Observation(Document):
 			frappe.db.set_value("Service Request", self.service_request, "status", "active-Request Status")
 
 	def set_age(self):
-		patient_doc = frappe.get_doc("Patient", self.patient)
-		if patient_doc.dob:
-			self.age = patient_doc.calculate_age().get("age_in_string")
-			self.days = patient_doc.calculate_age().get("age_in_days")
+		beneficiary_doc = frappe.get_doc("Beneficiary", self.beneficiary)
+		if beneficiary_doc.dob:
+			self.age = beneficiary_doc.calculate_age().get("age_in_string")
+			self.days = beneficiary_doc.calculate_age().get("age_in_days")
 
 	def set_status(self):
 		if self.status not in ["Approved", "Disapproved"]:
@@ -116,7 +116,7 @@ def get_observation_details(docname):
 			},
 			order_by="creation",
 		)
-	elif reference.get("ref_doctype") == "Patient Encounter":
+	elif reference.get("ref_doctype") == "Beneficiary Encounter":
 		service_requests = frappe.get_all(
 			"Service Request",
 			filters={
@@ -291,7 +291,7 @@ def edit_observation(observation, data_type, result):
 def add_observation(**args):
 	observation_doc = frappe.new_doc("Observation")
 	observation_doc.posting_datetime = now_datetime()
-	observation_doc.patient = args.get("patient")
+	observation_doc.beneficiary = args.get("beneficiary")
 	observation_doc.observation_template = args.get("template")
 	observation_doc.permitted_data_type = args.get("data_type")
 	observation_doc.reference_doctype = args.get("doc")
@@ -426,11 +426,11 @@ def is_numbers_with_exceptions(value):
 def get_observation_result_template(template_name, observation):
 	if observation:
 		observation_doc = frappe.get_doc("Observation", observation)
-		patient_doc = frappe.get_doc("Patient", observation_doc.get("patient"))
+		beneficiary_doc = frappe.get_doc("Beneficiary", observation_doc.get("beneficiary"))
 		observation_doc = json.loads(observation_doc.as_json())
-		patient_doc = json.loads(patient_doc.as_json())
-		# merged_dict = {"patient": patient_doc, "observation":observation_doc}
-		merged_dict = {**observation_doc, **patient_doc}
+		beneficiary_doc = json.loads(beneficiary_doc.as_json())
+		# merged_dict = {"beneficiary": beneficiary_doc, "observation":observation_doc}
+		merged_dict = {**observation_doc, **beneficiary_doc}
 		terms = get_terms_and_conditions(template_name, merged_dict)
 	return terms
 

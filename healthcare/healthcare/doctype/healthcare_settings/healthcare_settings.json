@@ -7,8 +7,8 @@
  "field_order": [
   "op_ip_settings",
   "sb_op_settings",
-  "patient_name_by",
-  "link_customer_to_patient",
+  "beneficiary_name_by",
+  "link_customer_to_beneficiary",
   "default_code_system",
   "validate_nursing_checklists",
   "default_google_calendar",
@@ -19,9 +19,9 @@
   "enable_free_follow_ups",
   "max_visits",
   "valid_days",
-  "inpatient_settings_section",
+  "inbeneficiary_settings_section",
   "allow_discharge_despite_unbilled_services",
-  "do_not_bill_inpatient_encounters",
+  "do_not_bill_inbeneficiary_encounters",
   "orders_tab",
   "default_intent",
   "column_break_1oy0",
@@ -37,7 +37,7 @@
   "custom_signature_in_print",
   "billing_accounts",
   "healthcare_service_items",
-  "inpatient_visit_charge_item",
+  "inbeneficiary_visit_charge_item",
   "op_consulting_charge_item",
   "column_break_13",
   "clinical_procedure_consumable_item",
@@ -47,7 +47,7 @@
   "order_details_section",
   "process_service_request_only_if_paid",
   "alerts_tab",
-  "out_patient_sms_alerts",
+  "out_beneficiary_sms_alerts",
   "send_registration_msg",
   "registration_msg",
   "send_appointment_confirmation",
@@ -66,18 +66,19 @@
   {
    "fieldname": "sb_op_settings",
    "fieldtype": "Section Break",
-   "label": "Outpatient Settings"
+   "label": "Beneficiary Settings"
   },
   {
    "fieldname": "column_break_9",
-   "fieldtype": "Column Break"
+   "fieldtype": "Column Break",
+   "hidden": 1
   },
   {
    "default": "0",
-   "description": "Checking this will create new Patients with a Disabled status by default and will only be enabled after invoicing the Registration Fee.",
+   "description": "Checking this will create new Beneficiarys with a Disabled status by default and will only be enabled after invoicing the Registration Fee.",
    "fieldname": "collect_registration_fee",
    "fieldtype": "Check",
-   "label": "Collect Fee for Patient Registration"
+   "label": "Collect Fee for Beneficiary Registration"
   },
   {
    "depends_on": "collect_registration_fee",
@@ -96,21 +97,21 @@
    "mandatory_depends_on": "eval:doc.enable_free_follow_ups == 1"
   },
   {
-   "description": "You can configure default Items for billing consultation charges, procedure consumption items and inpatient visits",
+   "description": "You can configure default Items for billing consultation charges, procedure consumption items and inbeneficiary visits",
    "fieldname": "healthcare_service_items",
    "fieldtype": "Section Break",
    "label": "Default Healthcare Service Items"
   },
   {
-   "fieldname": "inpatient_visit_charge_item",
+   "fieldname": "inbeneficiary_visit_charge_item",
    "fieldtype": "Link",
-   "label": "Inpatient Visit Charge Item",
+   "label": "Inbeneficiary Visit Charge Item",
    "options": "Item"
   },
   {
    "fieldname": "op_consulting_charge_item",
    "fieldtype": "Link",
-   "label": "Out Patient Consulting Charge Item",
+   "label": "Out Beneficiary Consulting Charge Item",
    "options": "Item"
   },
   {
@@ -124,9 +125,9 @@
    "options": "Item"
   },
   {
-   "fieldname": "out_patient_sms_alerts",
+   "fieldname": "out_beneficiary_sms_alerts",
    "fieldtype": "Section Break",
-   "label": "Out Patient SMS Alerts"
+   "label": "Out Beneficiary SMS Alerts"
   },
   {
    "fieldname": "column_break_16",
@@ -179,7 +180,7 @@
    "label": "Laboratory SMS Alerts"
   },
   {
-   "default": "Hello {{doc.patient}}, Your {{doc.lab_test_name}} result is ready with {{doc.company }}. \nThank You, Good day!",
+   "default": "Hello {{doc.beneficiary}}, Your {{doc.lab_test_name}} result is ready with {{doc.company }}. \nThank You, Good day!",
    "fieldname": "sms_printed",
    "fieldtype": "Small Text",
    "ignore_xss_filter": 1,
@@ -190,7 +191,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Hello {{doc.patient}}, Your {{doc.lab_test_name}} result has been emailed to {{doc.email}}. \n{{doc.company }}. \nThank You, Good day!",
+   "default": "Hello {{doc.beneficiary}}, Your {{doc.lab_test_name}} result has been emailed to {{doc.email}}. \n{{doc.company }}. \nThank You, Good day!",
    "fieldname": "sms_emailed",
    "fieldtype": "Small Text",
    "ignore_xss_filter": 1,
@@ -205,10 +206,10 @@
   },
   {
    "default": "1",
-   "description": "If checked, a customer will be created, mapped to Patient.\nPatient Invoices will be created against this Customer. You can also select existing Customer while creating Patient.",
-   "fieldname": "link_customer_to_patient",
+   "description": "If checked, a customer will be created, mapped to Beneficiary.\nBeneficiary Invoices will be created against this Customer. You can also select existing Customer while creating Beneficiary.",
+   "fieldname": "link_customer_to_beneficiary",
    "fieldtype": "Check",
-   "label": "Link Customer to Patient"
+   "label": "Link Customer to Beneficiary"
   },
   {
    "default": "0",
@@ -225,10 +226,10 @@
    "label": "Create Sample Collection document for Lab Test"
   },
   {
-   "fieldname": "patient_name_by",
+   "fieldname": "beneficiary_name_by",
    "fieldtype": "Select",
-   "label": "Patient Name By",
-   "options": "Patient Name\nNaming Series"
+   "label": "Beneficiary Name By",
+   "options": "Beneficiary Name\nNaming Series"
   },
   {
    "default": "0",
@@ -241,10 +242,10 @@
    "default": "0",
    "fieldname": "send_registration_msg",
    "fieldtype": "Check",
-   "label": "Patient Registration"
+   "label": "Beneficiary Registration"
   },
   {
-   "default": "Hello {{doc.patient}}, Thank you for registering with  {{doc.company}}. Your ID is {{doc.name}} . Please note this ID for future reference. \nThank You!",
+   "default": "Hello {{doc.beneficiary}}, Thank you for registering with  {{doc.company}}. Your ID is {{doc.name}} . Please note this ID for future reference. \nThank You!",
    "depends_on": "send_registration_msg",
    "fieldname": "registration_msg",
    "fieldtype": "Small Text",
@@ -258,7 +259,7 @@
    "label": "Appointment Confirmation"
   },
   {
-   "default": "Hello {{doc.patient}}, You have scheduled an appointment with {{doc.practitioner}} on {{doc.appointment_datetime}} at  {{doc.company}}.\nThank you, Good day!",
+   "default": "Hello {{doc.beneficiary}}, You have scheduled an appointment with {{doc.practitioner}} on {{doc.appointment_datetime}} at  {{doc.company}}.\nThank you, Good day!",
    "depends_on": "send_appointment_confirmation",
    "fieldname": "appointment_confirmation_msg",
    "fieldtype": "Small Text",
@@ -280,7 +281,7 @@
    "label": "Appointment Reminder"
   },
   {
-   "default": "Hello {{doc.patient}}, You have an appointment with {{doc.practitioner}} by {{doc.appointment_datetime}} at  {{doc.company}}.\nThank you, Good day!\n",
+   "default": "Hello {{doc.beneficiary}}, You have an appointment with {{doc.practitioner}} by {{doc.appointment_datetime}} at  {{doc.company}}.\nThank you, Good day!\n",
    "depends_on": "send_appointment_reminder",
    "fieldname": "appointment_reminder_msg",
    "fieldtype": "Small Text",
@@ -295,46 +296,48 @@
   },
   {
    "depends_on": "eval:doc.enable_free_follow_ups == 1",
-   "description": "The number of free follow ups (Patient Encounters in valid days) allowed",
+   "description": "The number of free follow ups (Beneficiary Encounters in valid days) allowed",
    "fieldname": "max_visits",
    "fieldtype": "Int",
-   "label": "Number of Patient Encounters in Valid Days",
+   "label": "Number of Beneficiary Encounters in Valid Days",
    "mandatory_depends_on": "eval:doc.enable_free_follow_ups == 1"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "enable_free_follow_ups",
    "fieldtype": "Check",
    "label": "Enable Free Follow-ups"
   },
   {
-   "fieldname": "inpatient_settings_section",
+   "fieldname": "inbeneficiary_settings_section",
    "fieldtype": "Section Break",
-   "label": "Inpatient Settings"
+   "hidden": 1,
+   "label": "Inbeneficiary Settings"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "allow_discharge_despite_unbilled_services",
    "fieldtype": "Check",
    "label": "Allow Discharge Despite Unbilled Healthcare Services"
   },
   {
-   "default": "0",
-   "fieldname": "do_not_bill_inpatient_encounters",
+   "default": "1",
+   "fieldname": "do_not_bill_inbeneficiary_encounters",
    "fieldtype": "Check",
-   "label": "Do Not Bill Patient Encounters for Inpatients"
+   "label": "Do Not Bill Beneficiary Encounters for Inbeneficiarys"
   },
   {
    "default": "0",
-   "description": "Validates all mandatory tasks in nursing checklist to be Completed before a Patient transactional event.",
+   "description": "Validates all mandatory tasks in nursing checklist to be Completed before a Beneficiary transactional event.",
    "fieldname": "validate_nursing_checklists",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Validate Nursing Checklists"
   },
   {
    "fieldname": "op_ip_settings",
    "fieldtype": "Tab Break",
-   "label": "OP & IP"
+   "label": "Beneficiary"
   },
   {
    "fieldname": "laboratory_tab",
@@ -352,7 +355,7 @@
    "label": "Alerts"
   },
   {
-   "description": "For use while scheduling tele-consultations via Google Meet",
+   "description": "For use while scheduling tele-consultations via Google Meet. Recommendation: Create a single Google Calendar for all Coordinators, and multiple ones for Peer Supporters.",
    "fieldname": "default_google_calendar",
    "fieldtype": "Link",
    "label": "Default Google Calendar",
@@ -405,7 +408,7 @@
  ],
  "issingle": 1,
  "links": [],
- "modified": "2023-11-06 14:20:22.424895",
+ "modified": "2024-12-17 12:39:00.244534",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare Settings",

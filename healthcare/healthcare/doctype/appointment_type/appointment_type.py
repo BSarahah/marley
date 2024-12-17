@@ -19,16 +19,16 @@ class AppointmentType(Document):
 					make_item_price(self.price_list, item.op_consulting_charge_item, item.op_consulting_charge)
 
 				existing_ip_item_price = frappe.db.exists(
-					"Item Price", {"item_code": item.inpatient_visit_charge_item, "price_list": self.price_list}
+					"Item Price", {"item_code": item.inbeneficiary_visit_charge_item, "price_list": self.price_list}
 				)
 
 				if (
 					not existing_ip_item_price
-					and item.inpatient_visit_charge_item
-					and item.inpatient_visit_charge
+					and item.inbeneficiary_visit_charge_item
+					and item.inbeneficiary_visit_charge
 				):
 					make_item_price(
-						self.price_list, item.inpatient_visit_charge_item, item.inpatient_visit_charge
+						self.price_list, item.inbeneficiary_visit_charge_item, item.inbeneficiary_visit_charge
 					)
 
 
@@ -46,9 +46,9 @@ def get_billing_details(appointment_type, docname=None):
 			filters=filters,
 			fieldname=[
 				"op_consulting_charge_item",
-				"inpatient_visit_charge_item",
+				"inbeneficiary_visit_charge_item",
 				"op_consulting_charge",
-				"inpatient_visit_charge",
+				"inbeneficiary_visit_charge",
 			],
 			as_dict=1,
 		)

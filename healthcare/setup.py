@@ -5,44 +5,44 @@ from frappe import _
 
 data = {
 	"desktop_icons": [
-		"Patient",
-		"Patient Appointment",
-		"Patient Encounter",
+		"Beneficiary",
+		"Beneficiary Appointment",
+		"Beneficiary Encounter",
 		"Lab Test",
 		"Healthcare",
 		"Vital Signs",
 		"Clinical Procedure",
-		"Inpatient Record",
+		"Inbeneficiary Record",
 		"Accounts",
 		"Buying",
 		"Stock",
 		"HR",
 		"ToDo",
 	],
-	"default_portal_role": "Patient",
+	"default_portal_role": "Beneficiary",
 	"restricted_roles": [
 		"Healthcare Administrator",
 		"LabTest Approver",
 		"Laboratory User",
 		"Nursing User",
 		"Physician",
-		"Patient",
+		"Beneficiary",
 	],
 	"custom_fields": {
 		"Sales Invoice": [
 			{
-				"fieldname": "patient",
-				"label": "Patient",
+				"fieldname": "beneficiary",
+				"label": "Beneficiary",
 				"fieldtype": "Link",
-				"options": "Patient",
+				"options": "Beneficiary",
 				"insert_after": "naming_series",
 			},
 			{
-				"fieldname": "patient_name",
-				"label": "Patient Name",
+				"fieldname": "beneficiary_name",
+				"label": "Beneficiary Name",
 				"fieldtype": "Data",
-				"fetch_from": "patient.patient_name",
-				"insert_after": "patient",
+				"fetch_from": "beneficiary.beneficiary_name",
+				"insert_after": "beneficiary",
 				"read_only": True,
 			},
 			{
@@ -102,28 +102,28 @@ data = {
 		],
 		"Stock Entry": [
 			{
-				"fieldname": "inpatient_medication_entry",
-				"label": "Inpatient Medication Entry",
+				"fieldname": "inbeneficiary_medication_entry",
+				"label": "Inbeneficiary Medication Entry",
 				"fieldtype": "Link",
-				"options": "Inpatient Medication Entry",
+				"options": "Inbeneficiary Medication Entry",
 				"insert_after": "credit_note",
 				"read_only": True,
 			}
 		],
 		"Stock Entry Detail": [
 			{
-				"fieldname": "patient",
-				"label": "Patient",
+				"fieldname": "beneficiary",
+				"label": "Beneficiary",
 				"fieldtype": "Link",
-				"options": "Patient",
+				"options": "Beneficiary",
 				"insert_after": "po_detail",
 				"read_only": True,
 			},
 			{
-				"fieldname": "inpatient_medication_entry_child",
-				"label": "Inpatient Medication Entry Child",
+				"fieldname": "inbeneficiary_medication_entry_child",
+				"label": "Inbeneficiary Medication Entry Child",
 				"fieldtype": "Data",
-				"insert_after": "patient",
+				"insert_after": "beneficiary",
 				"read_only": True,
 			},
 		],
@@ -203,7 +203,7 @@ def create_custom_records():
 	create_dosage_form()
 	create_healthcare_item_groups()
 	create_sensitivity()
-	setup_patient_history_settings()
+	setup_beneficiary_history_settings()
 	setup_service_request_masters()
 	setup_order_status_codes()
 
@@ -727,11 +727,11 @@ def create_sensitivity():
 	insert_record(records)
 
 
-def setup_patient_history_settings():
+def setup_beneficiary_history_settings():
 	import json
 
-	settings = frappe.get_single("Patient History Settings")
-	configuration = get_patient_history_config()
+	settings = frappe.get_single("Beneficiary History Settings")
+	configuration = get_beneficiary_history_config()
 	for dt, config in configuration.items():
 		settings.append(
 			"standard_doctypes",
@@ -742,9 +742,9 @@ def setup_patient_history_settings():
 
 def setup_service_request_masters():
 	records = [
-		{"doctype": "Patient Care Type", "patient_care_type": _("Preventive")},
-		{"doctype": "Patient Care Type", "patient_care_type": _("Intervention")},
-		{"doctype": "Patient Care Type", "patient_care_type": _("Diagnostic")},
+		{"doctype": "Beneficiary Care Type", "beneficiary_care_type": _("Preventive")},
+		{"doctype": "Beneficiary Care Type", "beneficiary_care_type": _("Intervention")},
+		{"doctype": "Beneficiary Care Type", "beneficiary_care_type": _("Diagnostic")},
 		{
 			"doctype": "Code System",
 			"uri": "http://hl7.org/fhir/request-intent",
@@ -801,7 +801,7 @@ def setup_service_request_masters():
 			"code_system": "Intent",
 			"code_value": _("Directive"),
 			"definition": _(
-				"The request represents a legally binding instruction authored by a Patient or RelatedPerson."
+				"The request represents a legally binding instruction authored by a Beneficiary or RelatedPerson."
 			),
 			"official_url": "http://hl7.org/fhir/ValueSet/request-intent",
 		},
@@ -884,9 +884,9 @@ def setup_service_request_masters():
 	insert_record(records)
 
 
-def get_patient_history_config():
+def get_beneficiary_history_config():
 	return {
-		"Patient Encounter": (
+		"Beneficiary Encounter": (
 			"encounter_date",
 			[
 				{"label": "Healthcare Practitioner", "fieldname": "practitioner", "fieldtype": "Link"},
@@ -964,7 +964,7 @@ def get_patient_history_config():
 				{"label": "BMI", "fieldname": "bmi", "fieldtype": "Float"},
 			],
 		),
-		"Inpatient Medication Order": (
+		"Inbeneficiary Medication Order": (
 			"start_date",
 			[
 				{"label": "Healthcare Practitioner", "fieldname": "practitioner", "fieldtype": "Link"},
@@ -1178,7 +1178,7 @@ def get_observation_category_codes():
 			"code_value": "social-history",
 			"display": _("Social History"),
 			"definition": _(
-				"Social History Observations define the patient's occupational, personal (e.g., lifestyle), social, familial, and environmental history and health risk factors that may impact the patient's health."
+				"Social History Observations define the beneficiary's occupational, personal (e.g., lifestyle), social, familial, and environmental history and health risk factors that may impact the beneficiary's health."
 			),
 			"official_url": "http://hl7.org/fhir/ValueSet/observation-category",
 		},
@@ -1208,7 +1208,7 @@ def get_observation_category_codes():
 			"code_value": "laboratory",
 			"display": _("Laboratory"),
 			"definition": _(
-				"The results of observations generated by laboratories. Laboratory results are typically generated by laboratories providing analytic services in areas such as chemistry, hematology, serology, histology, cytology, anatomic pathology (including digital pathology), microbiology, and/or virology. These observations are based on analysis of specimens obtained from the patient and submitted to the laboratory."
+				"The results of observations generated by laboratories. Laboratory results are typically generated by laboratories providing analytic services in areas such as chemistry, hematology, serology, histology, cytology, anatomic pathology (including digital pathology), microbiology, and/or virology. These observations are based on analysis of specimens obtained from the beneficiary and submitted to the laboratory."
 			),
 			"official_url": "http://hl7.org/fhir/ValueSet/observation-category",
 		},
@@ -1238,7 +1238,7 @@ def get_observation_category_codes():
 			"code_value": "exam",
 			"display": _("Exam"),
 			"definition": _(
-				"Observations generated by physical exam findings including direct observations made by a clinician and use of simple instruments and the result of simple maneuvers performed directly on the patient's body."
+				"Observations generated by physical exam findings including direct observations made by a clinician and use of simple instruments and the result of simple maneuvers performed directly on the beneficiary's body."
 			),
 			"official_url": "http://hl7.org/fhir/ValueSet/observation-category",
 		},
@@ -1536,7 +1536,7 @@ def get_medication_request_codes():
 			"code_value": "entered-in-error",
 			"display": _("Entered in Error"),
 			"definition": _(
-				"The request was recorded against the wrong patient or for some reason should not have been recorded (e.g. wrong medication, wrong dose, etc.). Some of the actions that are implied by the medication request may have occurred. For example, the medication may have been dispensed and the patient may have taken some of the medication."
+				"The request was recorded against the wrong beneficiary or for some reason should not have been recorded (e.g. wrong medication, wrong dose, etc.). Some of the actions that are implied by the medication request may have occurred. For example, the medication may have been dispensed and the beneficiary may have taken some of the medication."
 			),
 			"official_url": "http://hl7.org/fhir/ValueSet/medicationrequest-status",
 		},

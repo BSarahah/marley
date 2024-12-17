@@ -1,0 +1,20 @@
+<div class="beneficiary-history-sidebar">
+    <div class="beneficiary-image-container">
+		{% if beneficiary_image %}
+			<div class="beneficiary-image" src={{beneficiary_image}} style="background-image: url(\'{%= beneficiary_image %}\')"></div>
+		{% endif %}
+    </div>
+    <div class="beneficiary-intro">
+		{% if beneficiary_name %}
+		<p class="beneficiary-name bold">{{beneficiary_name}}</p>
+		{% endif %}
+		{% if beneficiary_gender %}
+		<p class="beneficiary-gender text-muted">{%=__("Gender: ") %} {{beneficiary_gender}}</p>
+		{% endif %}
+		{% if beneficiary_mobile %}
+		<p class="beneficiary-mobile text-muted">{%=__("Contact: ") %} {{beneficiary_mobile}}</p>
+		{% endif %}
+	</div>
+    <div class="beneficiary-details">
+    </div>
+</div>

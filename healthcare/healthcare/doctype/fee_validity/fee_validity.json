@@ -9,11 +9,11 @@
  "engine": "InnoDB",
  "field_order": [
   "practitioner",
-  "patient",
+  "beneficiary",
   "medical_department",
   "column_break_3",
   "status",
-  "patient_appointment",
+  "beneficiary_appointment",
   "sales_invoice_ref",
   "section_break_3",
   "max_visits",
@@ -35,11 +35,11 @@
    "search_index": 1
   },
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "read_only": 1,
    "reqd": 1,
    "search_index": 1
@@ -114,10 +114,10 @@
    "read_only": 1
   },
   {
-   "fieldname": "patient_appointment",
+   "fieldname": "beneficiary_appointment",
    "fieldtype": "Link",
-   "label": "Patient Appointment",
-   "options": "Patient Appointment",
+   "label": "Beneficiary Appointment",
+   "options": "Beneficiary Appointment",
    "read_only": 1
   }
  ],
@@ -144,7 +144,7 @@
  ],
  "quick_entry": 1,
  "restrict_to_domain": "Healthcare",
- "search_fields": "practitioner, patient",
+ "search_fields": "practitioner, beneficiary",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

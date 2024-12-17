@@ -6,10 +6,10 @@ frappe.ui.form.on("Treatment Counselling", {
 		if (!frm.doc.__islocal) {
 			if (frm.doc.docstatus === 1) {
 				if (frm.doc.encounter_status == "Admission Scheduled" && frm.doc.status == "Active") {
-					if (!frm.doc.inpatient_record) {
+					if (!frm.doc.inbeneficiary_record) {
 						frm.add_custom_button(__('Schedule Admission'), function() {
 							frappe.confirm(__("Confirm to Schedule Admission"), function() {
-								schedule_inpatient(frm);
+								schedule_inbeneficiary(frm);
 							});
 						});
 					}
@@ -31,11 +31,11 @@ frappe.ui.form.on("Treatment Counselling", {
 				}
 				if (frm.doc.status == "Completed") {
 					frm.add_custom_button(__("Admission Encounter"), function() {
-						frappe.set_route("Form", "Patient Encounter", frm.doc.admission_encounter);
+						frappe.set_route("Form", "Beneficiary Encounter", frm.doc.admission_encounter);
 					}, "View")
 
-					frm.add_custom_button(__("Inpatient Record"), function() {
-						frappe.set_route("Form", "Inpatient Record", frm.doc.inpatient_record);
+					frm.add_custom_button(__("Inbeneficiary Record"), function() {
+						frappe.set_route("Form", "Inbeneficiary Record", frm.doc.inbeneficiary_record);
 					}, "View")
 				}
 			}
@@ -71,9 +71,9 @@ var set_terms_and_conditions = function(frm){
 	}
 }
 
-var schedule_inpatient = function(frm) {
+var schedule_inbeneficiary = function(frm) {
 	var args = {
-		patient: frm.doc.patient,
+		beneficiary: frm.doc.beneficiary,
 		admission_encounter: frm.doc.admission_encounter,
 		referring_practitioner: frm.doc.referring_practitioner,
 		company: frm.doc.company,

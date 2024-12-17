@@ -12,8 +12,8 @@
    "fieldname": "appointment",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Patient Appointment",
-   "options": "Patient Appointment",
+   "label": "Beneficiary Appointment",
+   "options": "Beneficiary Appointment",
    "reqd": 1
   }
  ],

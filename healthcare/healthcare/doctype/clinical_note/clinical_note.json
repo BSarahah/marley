@@ -1,14 +1,14 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{patient}-{reference_name}-{#####}",
+ "autoname": "format:{beneficiary}-{reference_name}-{#####}",
  "creation": "2023-05-12 12:31:47.611942",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "patient",
+  "beneficiary",
   "gender",
   "blood_group",
   "clinical_note_type",
@@ -25,16 +25,16 @@
  ],
  "fields": [
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "reqd": 1
   },
   {
-   "fetch_from": "patient.sex",
+   "fetch_from": "beneficiary.sex",
    "fieldname": "gender",
    "fieldtype": "Link",
    "label": "Gender",
@@ -42,7 +42,7 @@
    "read_only": 1
   },
   {
-   "fetch_from": "patient.blood_group",
+   "fetch_from": "beneficiary.blood_group",
    "fieldname": "blood_group",
    "fieldtype": "Data",
    "label": "Blood Group",

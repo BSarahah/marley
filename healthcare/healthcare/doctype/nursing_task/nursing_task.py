@@ -17,9 +17,9 @@ class NursingTask(Document):
 		# set requested start / end
 		self.set_task_schedule()
 
-		self.title = "{} - {}".format(_(self.patient), _(self.activity))
+		self.title = "{} - {}".format(_(self.beneficiary), _(self.activity))
 
-		self.age = frappe.get_doc("Patient", self.patient).get_age()
+		self.age = frappe.get_doc("Beneficiary", self.beneficiary).get_age()
 
 	def validate(self):
 		if self.status == "Requested":
@@ -87,9 +87,9 @@ class NursingTask(Document):
 			medical_department = (
 				doc.get("department") if doc.get("department") else doc.get("medical_department")
 			)
-			if doc.get("doctype") == "Inpatient Record":
+			if doc.get("doctype") == "Inbeneficiary Record":
 				service_unit = (
-					frappe.db.get_value("Inpatient Occupancy", {"parent": doc.name, "left": 0}, "service_unit"),
+					frappe.db.get_value("Inbeneficiary Occupancy", {"parent": doc.name, "left": 0}, "service_unit"),
 				)
 			else:
 				service_unit = (
@@ -104,7 +104,7 @@ class NursingTask(Document):
 				"medical_department": medical_department,
 				"reference_doctype": doc.get("doctype"),
 				"reference_name": doc.get("name"),
-				"patient": doc.get("patient"),
+				"beneficiary": doc.get("beneficiary"),
 				"activity": task.activity,
 				"mandatory": task.mandatory,
 				"duration": task.task_duration,

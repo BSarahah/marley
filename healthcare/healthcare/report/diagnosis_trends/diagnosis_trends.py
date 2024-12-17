@@ -100,7 +100,7 @@ class DiagnosisTrends(object):
 		)
 
 	def get_data(self):
-		pe_diagnosis = frappe.qb.DocType("Patient Encounter Diagnosis")
+		pe_diagnosis = frappe.qb.DocType("Beneficiary Encounter Diagnosis")
 		query = (
 			frappe.qb.from_(pe_diagnosis)
 			.select("name", "creation", "diagnosis")
@@ -111,7 +111,7 @@ class DiagnosisTrends(object):
 
 		if department:
 			encounters = frappe.get_all(
-				"Patient Encounter", filters={"medical_department": department}, pluck="name"
+				"Beneficiary Encounter", filters={"medical_department": department}, pluck="name"
 			)
 			if encounters:
 				_operator = OPERATOR_MAP["in"]

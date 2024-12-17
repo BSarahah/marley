@@ -19,14 +19,14 @@ class TestHealthcareServiceUnitType(FrappeTestCase):
 
 
 def get_unit_type():
-	if frappe.db.exists("Healthcare Service Unit Type", "Inpatient Rooms"):
-		return frappe.get_doc("Healthcare Service Unit Type", "Inpatient Rooms")
+	if frappe.db.exists("Healthcare Service Unit Type", "Inbeneficiary Rooms"):
+		return frappe.get_doc("Healthcare Service Unit Type", "Inbeneficiary Rooms")
 
 	unit_type = frappe.new_doc("Healthcare Service Unit Type")
-	unit_type.service_unit_type = "Inpatient Rooms"
-	unit_type.inpatient_occupancy = 1
+	unit_type.service_unit_type = "Inbeneficiary Rooms"
+	unit_type.inbeneficiary_occupancy = 1
 	unit_type.is_billable = 1
-	unit_type.item_code = "Inpatient Rooms"
+	unit_type.item_code = "Inbeneficiary Rooms"
 	unit_type.item_group = "Services"
 	unit_type.uom = "Hour"
 	unit_type.no_of_hours = 1

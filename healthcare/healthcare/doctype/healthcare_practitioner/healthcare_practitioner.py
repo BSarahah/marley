@@ -30,15 +30,15 @@ class HealthcarePractitioner(Document):
 	def validate(self):
 		self.set_full_name()
 		validate_party_accounts(self)
-		if self.inpatient_visit_charge_item:
+		if self.inbeneficiary_visit_charge_item:
 			validate_service_item(
-				self.inpatient_visit_charge_item,
-				"Configure a service Item for Inpatient Consulting Charge Item",
+				self.inbeneficiary_visit_charge_item,
+				"Configure a service Item for Inbeneficiary Consulting Charge Item",
 			)
-			if not self.inpatient_visit_charge:
+			if not self.inbeneficiary_visit_charge:
 				frappe.throw(
 					_(
-						"Inpatient Consulting Charge is mandatory if you are setting Inpatient Consulting Charge Item"
+						"Inbeneficiary Consulting Charge is mandatory if you are setting Inbeneficiary Consulting Charge Item"
 					),
 					frappe.MandatoryError,
 				)
@@ -46,12 +46,12 @@ class HealthcarePractitioner(Document):
 		if self.op_consulting_charge_item:
 			validate_service_item(
 				self.op_consulting_charge_item,
-				"Configure a service Item for Outpatient Consulting Charge Item",
+				"Configure a service Item for Outbeneficiary Consulting Charge Item",
 			)
 			if not self.op_consulting_charge:
 				frappe.throw(
 					_(
-						"Outpatient Consulting Charge is mandatory if you are setting Outpatient Consulting Charge Item"
+						"Outbeneficiary Consulting Charge is mandatory if you are setting Outbeneficiary Consulting Charge Item"
 					),
 					frappe.MandatoryError,
 				)

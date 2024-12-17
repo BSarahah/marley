@@ -38,11 +38,11 @@ class TherapySession(Document):
 
 	def on_update(self):
 		if self.appointment:
-			frappe.db.set_value("Patient Appointment", self.appointment, "status", "Closed")
+			frappe.db.set_value("Beneficiary Appointment", self.appointment, "status", "Closed")
 
 	def on_cancel(self):
 		if self.appointment:
-			frappe.db.set_value("Patient Appointment", self.appointment, "status", "Open")
+			frappe.db.set_value("Beneficiary Appointment", self.appointment, "status", "Open")
 		if self.service_request:
 			frappe.db.set_value("Service Request", self.service_request, "status", "active-Request Status")
 
@@ -61,7 +61,7 @@ class TherapySession(Document):
 			`tabTherapy Session`
 		where
 			start_date=%s and name!=%s and docstatus!=2
-			and (practitioner=%s or patient=%s) and
+			and (practitioner=%s or beneficiary=%s) and
 			((start_time<%s and start_time + INTERVAL duration MINUTE>%s) or
 			(start_time>%s and start_time<%s) or
 			(start_time=%s))
@@ -70,7 +70,7 @@ class TherapySession(Document):
 				self.start_date,
 				self.name,
 				self.practitioner,
-				self.patient,
+				self.beneficiary,
 				self.start_time,
 				end_time.time(),
 				self.start_time,
@@ -157,16 +157,16 @@ def create_therapy_session(source_name, target_doc=None):
 		target.exercises = therapy_type.exercises
 
 	doc = get_mapped_doc(
-		"Patient Appointment",
+		"Beneficiary Appointment",
 		source_name,
 		{
-			"Patient Appointment": {
+			"Beneficiary Appointment": {
 				"doctype": "Therapy Session",
 				"field_map": [
 					["appointment", "name"],
-					["patient", "patient"],
-					["patient_age", "patient_age"],
-					["gender", "patient_sex"],
+					["beneficiary", "beneficiary"],
+					["beneficiary_age", "beneficiary_age"],
+					["gender", "beneficiary_sex"],
 					["therapy_type", "therapy_type"],
 					["therapy_plan", "therapy_plan"],
 					["practitioner", "practitioner"],
@@ -189,7 +189,7 @@ def create_therapy_session(source_name, target_doc=None):
 @frappe.whitelist()
 def invoice_therapy_session(source_name, target_doc=None):
 	def set_missing_values(source, target):
-		target.customer = frappe.db.get_value("Patient", source.patient, "customer")
+		target.customer = frappe.db.get_value("Beneficiary", source.beneficiary, "customer")
 		target.due_date = getdate()
 		target.debit_to = get_receivable_account(source.company)
 		item = target.append("items", {})
@@ -203,7 +203,7 @@ def invoice_therapy_session(source_name, target_doc=None):
 			"Therapy Session": {
 				"doctype": "Sales Invoice",
 				"field_map": [
-					["patient", "patient"],
+					["beneficiary", "beneficiary"],
 					["referring_practitioner", "practitioner"],
 					["company", "company"],
 					["due_date", "start_date"],

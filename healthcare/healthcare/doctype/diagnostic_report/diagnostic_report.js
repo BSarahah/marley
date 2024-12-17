@@ -27,7 +27,7 @@ frappe.ui.form.on("Diagnostic Report", {
 
 var show_diagnostic_report = function(frm) {
 	frm.fields_dict.observation.html("");
-	if (frm.doc.patient) {
+	if (frm.doc.beneficiary) {
 		this.diagnostic_report = new healthcare.Diagnostic.DiagnosticReport({
 			frm: frm,
 			observation_wrapper: $(frm.fields_dict.observation.wrapper),

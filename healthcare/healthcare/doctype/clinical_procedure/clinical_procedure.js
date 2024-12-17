@@ -25,7 +25,7 @@ frappe.ui.form.on('Clinical Procedure', {
 		frm.set_query('service_request', function() {
 			return {
 				filters: {
-					'patient': frm.doc.patient,
+					'beneficiary': frm.doc.beneficiary,
 					'status': 'Active',
 					'docstatus': 1,
 					'template_dt': 'Clinical Procedure template'
@@ -35,7 +35,7 @@ frappe.ui.form.on('Clinical Procedure', {
 	},
 
 	refresh: function(frm) {
-		frm.set_query('patient', function () {
+		frm.set_query('beneficiary', function () {
 			return {
 				filters: {'status': ['!=', 'Disabled']}
 			};
@@ -154,14 +154,14 @@ frappe.ui.form.on('Clinical Procedure', {
 			}
 		}
 		if(frm.doc.__islocal) {
-			frm.add_custom_button(__('Get from Patient Encounter'), function () {
+			frm.add_custom_button(__('Get from Beneficiary Encounter'), function () {
 				get_procedure_prescribed(frm);
 			});
 		}
 
 		frm.add_custom_button(__("Clinical Note"), function() {
 			frappe.route_options = {
-				"patient": frm.doc.patient,
+				"beneficiary": frm.doc.beneficiary,
 				"reference_doc": "Clinical Procedure",
 				"reference_name": frm.doc.name}
 					frappe.new_doc("Clinical Note");
@@ -176,12 +176,12 @@ frappe.ui.form.on('Clinical Procedure', {
 		}
 	},
 
-	patient: function(frm) {
-		if (frm.doc.patient) {
+	beneficiary: function(frm) {
+		if (frm.doc.beneficiary) {
 			frappe.call({
-				'method': 'healthcare.healthcare.doctype.patient.patient.get_patient_detail',
+				'method': 'healthcare.healthcare.doctype.beneficiary.beneficiary.get_beneficiary_detail',
 				args: {
-					patient: frm.doc.patient
+					beneficiary: frm.doc.beneficiary
 				},
 				callback: function (data) {
 					let age = '';
@@ -193,15 +193,15 @@ frappe.ui.form.on('Clinical Procedure', {
 							age = __('{0} as on {1}', [age, data.message.age_as_on]);
 						}
 					}
-					frm.set_value('patient_name', data.message.patient_name);
-					frm.set_value('patient_age', age);
-					frm.set_value('patient_sex', data.message.sex);
+					frm.set_value('beneficiary_name', data.message.beneficiary_name);
+					frm.set_value('beneficiary_age', age);
+					frm.set_value('beneficiary_sex', data.message.sex);
 				}
 			});
 		} else {
-			frm.set_value('patient_name', '');
-			frm.set_value('patient_age', '');
-			frm.set_value('patient_sex', '');
+			frm.set_value('beneficiary_name', '');
+			frm.set_value('beneficiary_age', '');
+			frm.set_value('beneficiary_sex', '');
 		}
 	},
 
@@ -210,12 +210,12 @@ frappe.ui.form.on('Clinical Procedure', {
 			frappe.call({
 				'method': 'frappe.client.get',
 				args: {
-					doctype: 'Patient Appointment',
+					doctype: 'Beneficiary Appointment',
 					name: frm.doc.appointment
 				},
 				callback: function(data) {
 					let values = {
-						'patient':data.message.patient,
+						'beneficiary':data.message.beneficiary,
 						'procedure_template': data.message.procedure_template,
 						'medical_department': data.message.department,
 						'practitioner': data.message.practitioner,
@@ -230,17 +230,17 @@ frappe.ui.form.on('Clinical Procedure', {
 			});
 		} else {
 			let values = {
-				'patient': '',
-				'patient_name': '',
-				'patient_sex': '',
-				'patient_age': '',
+				'beneficiary': '',
+				'beneficiary_name': '',
+				'beneficiary_sex': '',
+				'beneficiary_age': '',
 				'medical_department': '',
 				'procedure_template': '',
 				'start_date': '',
 				'start_time': '',
 				'notes': '',
 				'service_unit': '',
-				'inpatient_record': ''
+				'inbeneficiary_record': ''
 			};
 			frm.set_value(values);
 		}
@@ -443,17 +443,17 @@ cur_frm.set_query('item_code', 'items', function() {
 });
 
 let get_procedure_prescribed = function(frm){
-	if(frm.doc.patient){
+	if(frm.doc.beneficiary){
 		frappe.call({
 			method:"healthcare.healthcare.doctype.clinical_procedure.clinical_procedure.get_procedure_prescribed",
-			args: {patient: frm.doc.patient},
+			args: {beneficiary: frm.doc.beneficiary},
 			callback: function(r){
 				show_procedure_templates(frm, r.message);
 			}
 		});
 	}
 	else{
-		frappe.msgprint(__("Please select Patient to get prescribed procedure"));
+		frappe.msgprint(__("Please select Beneficiary to get prescribed procedure"));
 	}
 };
 
@@ -500,7 +500,7 @@ let show_procedure_templates = function(frm, result){
 		});
 	});
 	if(!result || result.length < 1){
-		var msg = "There are no procedure prescribed for patient "+frm.doc.patient;
+		var msg = "There are no procedure prescribed for beneficiary "+frm.doc.beneficiary;
 		$(repl('<div class="text-left">%(msg)s</div>', {msg: msg})).appendTo(html_field);
 	}
 	d.show();

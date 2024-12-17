@@ -37,8 +37,8 @@
   "op_consulting_charge_item",
   "op_consulting_charge",
   "column_break_18",
-  "inpatient_visit_charge_item",
-  "inpatient_visit_charge",
+  "inbeneficiary_visit_charge_item",
+  "inbeneficiary_visit_charge",
   "account_details",
   "default_currency",
   "accounts",
@@ -108,6 +108,7 @@
    "read_only": 1
   },
   {
+   "default": "Peer Support",
    "fieldname": "department",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
@@ -162,13 +163,13 @@
   {
    "fieldname": "op_consulting_charge_item",
    "fieldtype": "Link",
-   "label": "Out Patient Consulting Charge Item",
+   "label": "Out Beneficiary Consulting Charge Item",
    "options": "Item"
   },
   {
    "fieldname": "op_consulting_charge",
    "fieldtype": "Currency",
-   "label": "Out Patient Consulting Charge",
+   "label": "Out Beneficiary Consulting Charge",
    "mandatory_depends_on": "op_consulting_charge_item",
    "options": "Currency"
   },
@@ -177,16 +178,16 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "inpatient_visit_charge_item",
+   "fieldname": "inbeneficiary_visit_charge_item",
    "fieldtype": "Link",
-   "label": "Inpatient Visit Charge Item",
+   "label": "Inbeneficiary Visit Charge Item",
    "options": "Item"
   },
   {
-   "fieldname": "inpatient_visit_charge",
+   "fieldname": "inbeneficiary_visit_charge",
    "fieldtype": "Currency",
-   "label": "Inpatient Visit Charge",
-   "mandatory_depends_on": "inpatient_visit_charge_item"
+   "label": "Inbeneficiary Visit Charge",
+   "mandatory_depends_on": "inbeneficiary_visit_charge_item"
   },
   {
    "depends_on": "eval: !doc.__islocal",
@@ -357,7 +358,7 @@
  ],
  "image_field": "image",
  "links": [],
- "modified": "2023-03-04 18:33:25.753648",
+ "modified": "2024-12-17 14:50:32.670345",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare Practitioner",

@@ -1,11 +1,11 @@
 {
  "charts": [
   {
-   "chart_name": "Patient Appointments",
-   "label": "Patient Appointments"
+   "chart_name": "Beneficiary Appointments",
+   "label": "Beneficiary Appointments"
   }
  ],
- "content": "[{\"id\":\"9b831922c0\",\"type\":\"onboarding\",\"data\":{\"onboarding_name\":\"Healthcare\",\"col\":12}},{\"id\":\"f1f8e3812a\", \"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Patients\",\"col\":3}},{\"id\":\"326087361e\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Patients Admitted\",\"col\":3}},{\"id\":\"264b39da0e\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Open Appointments\",\"col\":3}},{\"id\":\"e507c90d85\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Appointments to Bill\",\"col\":3}},{\"id\":\"IPK_0OJyFF\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Patient Appointments\",\"col\":12}},{\"id\":\"fKaNGh_f3X\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"LCsKfCbHFS\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Your Shortcuts</span>\",\"col\":12}},{\"id\":\"gtytowgpr9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Patient Appointment\",\"col\":4}},{\"id\":\"cgh4dqonE3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Patient\",\"col\":4}},{\"id\":\"pw8ECGStt-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Healthcare Service Unit\",\"col\":4}},{\"id\":\"irCA7TCgAO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Healthcare Practitioner\",\"col\":4}},{\"id\":\"wdgJqmB4mx\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Patient History\",\"col\":4}},{\"id\":\"oN5Gi4f4LN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":4}},{\"id\":\"QAyRuJGfxG\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"-K7NMpJiTM\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Reports &amp; Masters</span>\",\"col\":12}},{\"id\":\"M1PT6PedBj\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}},{\"id\":\"51eVEiCjvf\",\"type\":\"card\",\"data\":{\"card_name\":\"Consultation\",\"col\":4}},{\"id\":\"Mk_jHVQUPc\",\"type\":\"card\",\"data\":{\"card_name\":\"Orders\",\"col\":4}},{\"id\":\"PwTxarr1_m\",\"type\":\"card\",\"data\":{\"card_name\":\"Inpatient\",\"col\":4}},{\"id\":\"W-3YAoPKn-\",\"type\":\"card\",\"data\":{\"card_name\":\"Rehabilitation and Physiotherapy\",\"col\":4}},{\"id\":\"6cc3885df2\",\"type\":\"card\",\"data\":{\"card_name\":\"Diagnostic Module\",\"col\":4}},{\"id\":\"hMMLOCZpxJ\",\"type\":\"card\",\"data\":{\"card_name\":\"Nursing\",\"col\":4}},{\"id\":\"jC32DydzyL\",\"type\":\"card\",\"data\":{\"card_name\":\"Laboratory\",\"col\":4}},{\"id\":\"AYDEjJSeTB\",\"type\":\"card\",\"data\":{\"card_name\":\"Medical Codes and Standards\",\"col\":4}},{\"id\":\"GvdoebZzcE\",\"type\":\"card\",\"data\":{\"card_name\":\"Service Units \",\"col\":4}},{\"id\":\"1f1f1a7b9e\",\"type\":\"card\",\"data\":{\"card_name\":\"Terminology Mapping\",\"col\":4}},{\"id\":\"rstxE68cTQ\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}},{\"id\":\"YnekHjQCia\",\"type\":\"card\",\"data\":{\"card_name\":\"Consultation Setup\",\"col\":4}},{\"id\":\"5J3nicaW1a\",\"type\":\"card\",\"data\":{\"card_name\":\"Laboratory Setup\",\"col\":4}},{\"id\":\"zcOmhgxb5f\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"9b831922c0\",\"type\":\"onboarding\",\"data\":{\"onboarding_name\":\"Healthcare\",\"col\":12}},{\"id\":\"f1f8e3812a\", \"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Beneficiarys\",\"col\":3}},{\"id\":\"326087361e\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Beneficiarys Admitted\",\"col\":3}},{\"id\":\"264b39da0e\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Open Appointments\",\"col\":3}},{\"id\":\"e507c90d85\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Appointments to Bill\",\"col\":3}},{\"id\":\"IPK_0OJyFF\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Beneficiary Appointments\",\"col\":12}},{\"id\":\"fKaNGh_f3X\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"LCsKfCbHFS\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Your Shortcuts</span>\",\"col\":12}},{\"id\":\"gtytowgpr9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Beneficiary Appointment\",\"col\":4}},{\"id\":\"cgh4dqonE3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Beneficiary\",\"col\":4}},{\"id\":\"pw8ECGStt-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Healthcare Service Unit\",\"col\":4}},{\"id\":\"irCA7TCgAO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Healthcare Practitioner\",\"col\":4}},{\"id\":\"wdgJqmB4mx\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Beneficiary History\",\"col\":4}},{\"id\":\"oN5Gi4f4LN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":4}},{\"id\":\"QAyRuJGfxG\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"-K7NMpJiTM\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Reports &amp; Masters</span>\",\"col\":12}},{\"id\":\"M1PT6PedBj\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}},{\"id\":\"51eVEiCjvf\",\"type\":\"card\",\"data\":{\"card_name\":\"Consultation\",\"col\":4}},{\"id\":\"Mk_jHVQUPc\",\"type\":\"card\",\"data\":{\"card_name\":\"Orders\",\"col\":4}},{\"id\":\"PwTxarr1_m\",\"type\":\"card\",\"data\":{\"card_name\":\"Inbeneficiary\",\"col\":4}},{\"id\":\"W-3YAoPKn-\",\"type\":\"card\",\"data\":{\"card_name\":\"Rehabilitation and Physiotherapy\",\"col\":4}},{\"id\":\"6cc3885df2\",\"type\":\"card\",\"data\":{\"card_name\":\"Diagnostic Module\",\"col\":4}},{\"id\":\"hMMLOCZpxJ\",\"type\":\"card\",\"data\":{\"card_name\":\"Nursing\",\"col\":4}},{\"id\":\"jC32DydzyL\",\"type\":\"card\",\"data\":{\"card_name\":\"Laboratory\",\"col\":4}},{\"id\":\"AYDEjJSeTB\",\"type\":\"card\",\"data\":{\"card_name\":\"Medical Codes and Standards\",\"col\":4}},{\"id\":\"GvdoebZzcE\",\"type\":\"card\",\"data\":{\"card_name\":\"Service Units \",\"col\":4}},{\"id\":\"1f1f1a7b9e\",\"type\":\"card\",\"data\":{\"card_name\":\"Terminology Mapping\",\"col\":4}},{\"id\":\"rstxE68cTQ\",\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}},{\"id\":\"YnekHjQCia\",\"type\":\"card\",\"data\":{\"card_name\":\"Consultation Setup\",\"col\":4}},{\"id\":\"5J3nicaW1a\",\"type\":\"card\",\"data\":{\"card_name\":\"Laboratory Setup\",\"col\":4}},{\"id\":\"zcOmhgxb5f\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2020-03-02 17:23:17.919682",
  "custom_blocks": [],
  "docstatus": 0,
@@ -29,9 +29,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient",
+   "label": "Beneficiary",
    "link_count": 0,
-   "link_to": "Patient",
+   "link_to": "Beneficiary",
    "link_type": "DocType",
    "onboard": 1,
    "type": "Link"
@@ -72,9 +72,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient Care Type",
+   "label": "Beneficiary Care Type",
    "link_count": 0,
-   "link_to": "Patient Care Type",
+   "link_to": "Beneficiary Care Type",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -91,9 +91,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient Appointment",
+   "label": "Beneficiary Appointment",
    "link_count": 0,
-   "link_to": "Patient Appointment",
+   "link_to": "Beneficiary Appointment",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -113,9 +113,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient Encounter",
+   "label": "Beneficiary Encounter",
    "link_count": 0,
-   "link_to": "Patient Encounter",
+   "link_to": "Beneficiary Encounter",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -165,9 +165,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient History Settings",
+   "label": "Beneficiary History Settings",
    "link_count": 0,
-   "link_to": "Patient History Settings",
+   "link_to": "Beneficiary History Settings",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -205,7 +205,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Inpatient",
+   "label": "Inbeneficiary",
    "link_count": 0,
    "link_type": "DocType",
    "onboard": 0,
@@ -214,9 +214,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Inpatient Record",
+   "label": "Inbeneficiary Record",
    "link_count": 0,
-   "link_to": "Inpatient Record",
+   "link_to": "Inbeneficiary Record",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -224,9 +224,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Inpatient Medication Order",
+   "label": "Inbeneficiary Medication Order",
    "link_count": 0,
-   "link_to": "Inpatient Medication Order",
+   "link_to": "Inbeneficiary Medication Order",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -234,9 +234,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Inpatient Medication Entry",
+   "label": "Inbeneficiary Medication Entry",
    "link_count": 0,
-   "link_to": "Inpatient Medication Entry",
+   "link_to": "Inbeneficiary Medication Entry",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -264,9 +264,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient Assessment",
+   "label": "Beneficiary Assessment",
    "link_count": 0,
-   "link_to": "Patient Assessment",
+   "link_to": "Beneficiary Assessment",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -319,9 +319,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient Assessment Template",
+   "label": "Beneficiary Assessment Template",
    "link_count": 0,
-   "link_to": "Patient Assessment Template",
+   "link_to": "Beneficiary Assessment Template",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -338,9 +338,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient History",
+   "label": "Beneficiary History",
    "link_count": 0,
-   "link_to": "patient_history",
+   "link_to": "beneficiary_history",
    "link_type": "Page",
    "onboard": 0,
    "type": "Link"
@@ -349,9 +349,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient Progress",
+   "label": "Beneficiary Progress",
    "link_count": 0,
-   "link_to": "patient-progress",
+   "link_to": "beneficiary-progress",
    "link_type": "Page",
    "onboard": 0,
    "type": "Link"
@@ -360,9 +360,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Patient Medical Record",
+   "label": "Beneficiary Medical Record",
    "link_count": 0,
-   "link_to": "Patient Medical Record",
+   "link_to": "Beneficiary Medical Record",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -379,9 +379,9 @@
    "dependencies": "",
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Patient Appointment Analytics",
+   "label": "Beneficiary Appointment Analytics",
    "link_count": 0,
-   "link_to": "Patient Appointment Analytics",
+   "link_to": "Beneficiary Appointment Analytics",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -732,18 +732,18 @@
    "type": "Link"
   }
  ],
- "modified": "2024-05-14 00:39:38.432511",
+ "modified": "2024-12-17 14:09:04.049623",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare",
  "number_cards": [
   {
-   "label": "Total Patients",
-   "number_card_name": "Total Patients"
+   "label": "Total Beneficiarys",
+   "number_card_name": "Total Beneficiarys"
   },
   {
-   "label": "Total Patients Admitted",
-   "number_card_name": "Total Patients Admitted"
+   "label": "Total Beneficiarys Admitted",
+   "number_card_name": "Total Beneficiarys Admitted"
   },
   {
    "label": "Open Appointments",
@@ -760,14 +760,14 @@
  "quick_lists": [],
  "restrict_to_domain": "Healthcare",
  "roles": [],
- "sequence_id": 13.0,
+ "sequence_id": 2.0,
  "shortcuts": [
   {
    "color": "Orange",
    "doc_view": "List",
    "format": "{} Open",
-   "label": "Patient Appointment",
-   "link_to": "Patient Appointment",
+   "label": "Beneficiary Appointment",
+   "link_to": "Beneficiary Appointment",
    "stats_filter": "{\n    \"status\": \"Open\",\n    \"company\": [\"like\", '%' + frappe.defaults.get_global_default(\"company\") + '%']\n}",
    "type": "DocType"
   },
@@ -775,8 +775,8 @@
    "color": "#761ACB",
    "doc_view": "List",
    "format": "{} Active",
-   "label": "Patient",
-   "link_to": "Patient",
+   "label": "Beneficiary",
+   "link_to": "Beneficiary",
    "stats_filter": "{\n    \"status\": \"Active\"\n}",
    "type": "DocType"
   },
@@ -799,8 +799,8 @@
    "type": "DocType"
   },
   {
-   "label": "Patient History",
-   "link_to": "patient_history",
+   "label": "Beneficiary History",
+   "link_to": "beneficiary_history",
    "type": "Page"
   },
   {

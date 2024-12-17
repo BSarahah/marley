@@ -5,6 +5,6 @@ def get_data():
 	return {
 		"fieldname": "appointment_type",
 		"transactions": [
-			{"label": _("Patient Appointments"), "items": ["Patient Appointment"]},
+			{"label": _("Beneficiary Appointments"), "items": ["Beneficiary Appointment"]},
 		],
 	}

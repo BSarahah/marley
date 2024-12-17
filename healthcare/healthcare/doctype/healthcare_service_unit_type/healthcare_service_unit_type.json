@@ -12,7 +12,7 @@
   "service_unit_type",
   "allow_appointments",
   "overlap_appointments",
-  "inpatient_occupancy",
+  "inbeneficiary_occupancy",
   "is_billable",
   "item_details",
   "item",
@@ -40,7 +40,7 @@
   {
    "bold": 1,
    "default": "0",
-   "depends_on": "eval:doc.inpatient_occupancy != 1",
+   "depends_on": "eval:doc.inbeneficiary_occupancy != 1",
    "fieldname": "allow_appointments",
    "fieldtype": "Check",
    "hide_days": 1,
@@ -50,7 +50,7 @@
   {
    "bold": 1,
    "default": "0",
-   "depends_on": "eval:doc.allow_appointments == 1 && doc.inpatient_occupany != 1",
+   "depends_on": "eval:doc.allow_appointments == 1 && doc.inbeneficiary_occupany != 1",
    "fieldname": "overlap_appointments",
    "fieldtype": "Check",
    "hide_days": 1,
@@ -61,16 +61,16 @@
    "bold": 1,
    "default": "0",
    "depends_on": "eval:doc.allow_appointments != 1",
-   "fieldname": "inpatient_occupancy",
+   "fieldname": "inbeneficiary_occupancy",
    "fieldtype": "Check",
    "hide_days": 1,
    "hide_seconds": 1,
-   "label": "Inpatient Occupancy"
+   "label": "Inbeneficiary Occupancy"
   },
   {
    "bold": 1,
    "default": "0",
-   "depends_on": "eval:doc.inpatient_occupancy == 1 && doc.allow_appointments != 1",
+   "depends_on": "eval:doc.inbeneficiary_occupancy == 1 && doc.allow_appointments != 1",
    "fieldname": "is_billable",
    "fieldtype": "Check",
    "hide_days": 1,

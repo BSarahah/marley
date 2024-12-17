@@ -17,7 +17,7 @@ class HealthcareSalesInvoice(SalesInvoice):
 				"doctype": "Sales Invoice",
 				"item_code": checked_item["item"],
 				"company": self.company,
-				"customer": frappe.db.get_value("Patient", self.patient, "customer"),
+				"customer": frappe.db.get_value("Beneficiary", self.beneficiary, "customer"),
 				"selling_price_list": price_list,
 				"price_list_currency": price_list_currency,
 				"plc_conversion_rate": 1.0,

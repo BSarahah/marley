@@ -3,7 +3,7 @@ from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 
 def setup():
-	if not frappe.db.exists("Custom Field", "Patient-abha_address"):
+	if not frappe.db.exists("Custom Field", "Beneficiary-abha_address"):
 		make_custom_fields()
 
 
@@ -17,7 +17,7 @@ def make_custom_fields():
 
 def get_custom_fields():
 	custom_fields = {
-		"Patient": [
+		"Beneficiary": [
 			dict(
 				fieldname="abha_address",
 				label="PHR Address",
@@ -36,7 +36,7 @@ def get_custom_fields():
 				fieldname="abha_card",
 				label="ABHA Card",
 				fieldtype="Attach",
-				insert_after="patient_details",
+				insert_after="beneficiary_details",
 				hidden=1,
 			),
 			dict(

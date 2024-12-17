@@ -15,7 +15,7 @@
  "name": "Diagnosis Trends",
  "owner": "Administrator",
  "prepared_report": 0,
- "ref_doctype": "Patient Encounter Diagnosis",
+ "ref_doctype": "Beneficiary Encounter Diagnosis",
  "report_name": "Diagnosis Trends",
  "report_type": "Script Report",
  "roles": [

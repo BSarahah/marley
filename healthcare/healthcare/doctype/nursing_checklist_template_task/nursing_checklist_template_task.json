@@ -58,7 +58,7 @@
    "label": "Mandatory"
   },
   {
-   "description": "System will validate if a document of this type is created and linked before completing the Nursing Task - for example, Vital Signs if the task is supposed to capture the vitals of the Patient",
+   "description": "System will validate if a document of this type is created and linked before completing the Nursing Task - for example, Vital Signs if the task is supposed to capture the vitals of the Beneficiary",
    "fetch_from": "activity.task_doctype",
    "fetch_if_empty": 1,
    "fieldname": "task_doctype",

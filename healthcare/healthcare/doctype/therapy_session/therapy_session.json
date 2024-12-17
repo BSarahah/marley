@@ -9,9 +9,9 @@
   "naming_series",
   "appointment",
   "therapy_plan",
-  "patient",
-  "patient_name",
-  "patient_age",
+  "beneficiary",
+  "beneficiary_name",
+  "beneficiary_age",
   "gender",
   "column_break_5",
   "company",
@@ -50,19 +50,19 @@
    "fieldname": "appointment",
    "fieldtype": "Link",
    "label": "Appointment",
-   "options": "Patient Appointment",
+   "options": "Beneficiary Appointment",
    "set_only_once": 1
   },
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "reqd": 1
   },
   {
-   "fetch_from": "patient.sex",
+   "fetch_from": "beneficiary.sex",
    "fieldname": "gender",
    "fieldtype": "Link",
    "label": "Gender",
@@ -184,9 +184,9 @@
    "read_only": 1
   },
   {
-   "fieldname": "patient_age",
+   "fieldname": "beneficiary_age",
    "fieldtype": "Data",
-   "label": "Patient Age",
+   "label": "Beneficiary Age",
    "read_only": 1
   },
   {
@@ -211,10 +211,10 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "patient.patient_name",
-   "fieldname": "patient_name",
+   "fetch_from": "beneficiary.beneficiary_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Patient Name",
+   "label": "Beneficiary Name",
    "read_only": 1
   },
   {
@@ -287,10 +287,10 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "patient,appointment,therapy_plan,therapy_type",
+ "search_fields": "beneficiary,appointment,therapy_plan,therapy_type",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "patient",
+ "title_field": "beneficiary",
  "track_changes": 1
 }

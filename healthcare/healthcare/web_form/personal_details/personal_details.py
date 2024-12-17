@@ -10,19 +10,19 @@ def get_context(context):
 
 	context.show_sidebar = True
 
-	if frappe.db.exists("Patient", {"email": frappe.session.user}):
-		patient = frappe.get_doc("Patient", {"email": frappe.session.user})
-		context.doc = patient
+	if frappe.db.exists("Beneficiary", {"email": frappe.session.user}):
+		beneficiary = frappe.get_doc("Beneficiary", {"email": frappe.session.user})
+		context.doc = beneficiary
 		frappe.form_dict.new = 0
-		frappe.form_dict.name = patient.name
+		frappe.form_dict.name = beneficiary.name
 
 
-def get_patient():
-	return frappe.get_value("Patient", {"email": frappe.session.user}, "name")
+def get_beneficiary():
+	return frappe.get_value("Beneficiary", {"email": frappe.session.user}, "name")
 
 
 def has_website_permission(doc, ptype, user, verbose=False):
-	if doc.name == get_patient():
+	if doc.name == get_beneficiary():
 		return True
 	else:
 		return False

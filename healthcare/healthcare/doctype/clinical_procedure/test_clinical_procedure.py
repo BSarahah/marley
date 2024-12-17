@@ -6,7 +6,7 @@
 import frappe
 from frappe.tests.utils import FrappeTestCase
 
-from healthcare.healthcare.doctype.patient_appointment.test_patient_appointment import (
+from healthcare.healthcare.doctype.beneficiary_appointment.test_beneficiary_appointment import (
 	create_clinical_procedure_template,
 	create_healthcare_docs,
 )
@@ -16,7 +16,7 @@ test_dependencies = ["Item"]
 
 class TestClinicalProcedure(FrappeTestCase):
 	def test_procedure_template_item(self):
-		patient, practitioner = create_healthcare_docs()
+		beneficiary, practitioner = create_healthcare_docs()
 		procedure_template = create_clinical_procedure_template()
 		self.assertTrue(frappe.db.exists("Item", procedure_template.item))
 
@@ -25,7 +25,7 @@ class TestClinicalProcedure(FrappeTestCase):
 		self.assertEqual(frappe.db.get_value("Item", procedure_template.item, "disabled"), 1)
 
 	def test_consumables(self):
-		patient, practitioner = create_healthcare_docs()
+		beneficiary, practitioner = create_healthcare_docs()
 		procedure_template = create_clinical_procedure_template()
 		procedure_template.allow_stock_consumption = 1
 		consumable = create_consumable()
@@ -39,7 +39,7 @@ class TestClinicalProcedure(FrappeTestCase):
 			},
 		)
 		procedure_template.save()
-		procedure = create_procedure(procedure_template, patient, practitioner)
+		procedure = create_procedure(procedure_template, beneficiary, practitioner)
 		result = procedure.start_procedure()
 		if result == "insufficient stock":
 			procedure.make_material_receipt(submit=True)
@@ -62,10 +62,10 @@ def create_consumable():
 	return consumable
 
 
-def create_procedure(procedure_template, patient, practitioner):
+def create_procedure(procedure_template, beneficiary, practitioner):
 	procedure = frappe.new_doc("Clinical Procedure")
 	procedure.procedure_template = procedure_template.name
-	procedure.patient = patient
+	procedure.beneficiary = beneficiary
 	procedure.practitioner = practitioner
 	procedure.consume_stock = procedure_template.allow_stock_consumption
 	procedure.items = procedure_template.items

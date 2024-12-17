@@ -224,6 +224,6 @@ frappe.tour['Clinical Procedure Template'] = [
 	{
 		fieldname: 'medical_department',
 		title: __('Medical Department'),
-		description: __('You can also set the Medical Department for the template. After saving the document, an Item will automatically be created for billing this Clinical Procedure. You can then use this template while creating Clinical Procedures for Patients. Templates save you from filling up redundant data every single time. You can also create templates for other operations like Lab Tests, Therapy Sessions, etc.')
+		description: __('You can also set the Medical Department for the template. After saving the document, an Item will automatically be created for billing this Clinical Procedure. You can then use this template while creating Clinical Procedures for Beneficiarys. Templates save you from filling up redundant data every single time. You can also create templates for other operations like Lab Tests, Therapy Sessions, etc.')
 	}
 ];

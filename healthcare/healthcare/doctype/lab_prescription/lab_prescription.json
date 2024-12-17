@@ -16,7 +16,7 @@
   "lab_test_comment",
   "lab_test_created",
   "section_break_pkty",
-  "patient_care_type",
+  "beneficiary_care_type",
   "column_break_on3b",
   "intent",
   "priority"
@@ -88,10 +88,10 @@
    "options": "Code Value"
   },
   {
-   "fieldname": "patient_care_type",
+   "fieldname": "beneficiary_care_type",
    "fieldtype": "Link",
-   "label": "Patient Care Type",
-   "options": "Patient Care Type"
+   "label": "Beneficiary Care Type",
+   "options": "Beneficiary Care Type"
   },
   {
    "allow_on_submit": 1,

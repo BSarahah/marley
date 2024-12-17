@@ -8,8 +8,8 @@ def get_data():
 		"fieldname": "practitioner",
 		"transactions": [
 			{
-				"label": _("Appointments and Patient Encounters"),
-				"items": ["Patient Appointment", "Patient Encounter", "Fee Validity"],
+				"label": _("Appointments and Beneficiary Encounters"),
+				"items": ["Beneficiary Appointment", "Beneficiary Encounter", "Fee Validity"],
 			},
 			{"label": _("Consultation"), "items": ["Clinical Procedure", "Lab Test"]},
 		],

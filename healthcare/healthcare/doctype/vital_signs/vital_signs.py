@@ -14,5 +14,5 @@ class VitalSigns(Document):
 
 	def set_title(self):
 		self.title = _("{0} on {1}").format(
-			self.patient_name or self.patient, frappe.utils.format_date(self.signs_date)
+			self.beneficiary_name or self.beneficiary, frappe.utils.format_date(self.signs_date)
 		)[:100]

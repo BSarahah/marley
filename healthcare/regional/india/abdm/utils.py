@@ -57,7 +57,7 @@ def get_authorization_token():
 
 
 @frappe.whitelist()
-def abdm_request(payload, url_key, req_type, rec_headers=None, to_be_enc=None, patient_name=None):
+def abdm_request(payload, url_key, req_type, rec_headers=None, to_be_enc=None, beneficiary_name=None):
 	if payload and isinstance(payload, str):
 		payload = json.loads(payload)
 
@@ -118,9 +118,9 @@ def abdm_request(payload, url_key, req_type, rec_headers=None, to_be_enc=None, p
 			_file = frappe.get_doc(
 				{
 					"doctype": "File",
-					"file_name": "abha_card{}.png".format(patient_name),
-					"attached_to_doctype": "Patient",
-					"attached_to_name": patient_name,
+					"file_name": "abha_card{}.png".format(beneficiary_name),
+					"attached_to_doctype": "Beneficiary",
+					"attached_to_name": beneficiary_name,
 					"attached_to_field": "abha_card",
 					"is_private": 0,
 					"content": pdf,
@@ -221,7 +221,7 @@ def get_health_data(otp, txnId, auth_method):
 	return response, abha_url
 
 
-# patient after_insert
+# beneficiary after_insert
 def set_consent_attachment_details(doc, method=None):
 	if frappe.db.exists(
 		"ABDM Settings",
@@ -234,7 +234,7 @@ def set_consent_attachment_details(doc, method=None):
 					"File",
 					file_name,
 					{
-						"attached_to_doctype": "Patient",
+						"attached_to_doctype": "Beneficiary",
 						"attached_to_name": doc.name,
 						"attached_to_field": doc.consent_for_aadhaar_use,
 					},
@@ -248,7 +248,7 @@ def set_consent_attachment_details(doc, method=None):
 					"File",
 					abha_file_name,
 					{
-						"attached_to_doctype": "Patient",
+						"attached_to_doctype": "Beneficiary",
 						"attached_to_name": doc.name,
 						"attached_to_field": doc.abha_card,
 					},

@@ -33,7 +33,7 @@ class ServiceRequest(ServiceRequestController):
 	def set_title(self):
 		if frappe.flags.in_import and self.title:
 			return
-		self.title = f"{self.patient_name} - {self.template_dn}"
+		self.title = f"{self.beneficiary_name} - {self.template_dn}"
 
 	def before_insert(self):
 		self.status = "draft-Request Status"
@@ -57,8 +57,8 @@ class ServiceRequest(ServiceRequestController):
 		# set item code
 		self.item_code = template.get("item")
 
-		if not self.patient_care_type and template.get("patient_care_type"):
-			self.patient_care_type = template.patient_care_type
+		if not self.beneficiary_care_type and template.get("beneficiary_care_type"):
+			self.beneficiary_care_type = template.beneficiary_care_type
 
 		if not self.staff_role and template.get("staff_role"):
 			self.staff_role = template.staff_role
@@ -125,11 +125,11 @@ def make_clinical_procedure(service_request):
 	doc.procedure_template = service_request.template_dn
 	doc.service_request = service_request.name
 	doc.company = service_request.company
-	doc.patient = service_request.patient
-	doc.patient_name = service_request.patient_name
-	doc.patient_sex = service_request.patient_gender
-	doc.patient_age = service_request.patient_age_data
-	doc.inpatient_record = service_request.inpatient_record
+	doc.beneficiary = service_request.beneficiary
+	doc.beneficiary_name = service_request.beneficiary_name
+	doc.beneficiary_sex = service_request.beneficiary_gender
+	doc.beneficiary_age = service_request.beneficiary_age_data
+	doc.inbeneficiary_record = service_request.inbeneficiary_record
 	doc.practitioner = service_request.practitioner
 	doc.start_date = service_request.occurrence_date
 	doc.start_time = service_request.occurrence_time
@@ -157,13 +157,13 @@ def make_lab_test(service_request):
 	doc.template = service_request.template_dn
 	doc.service_request = service_request.name
 	doc.company = service_request.company
-	doc.patient = service_request.patient
-	doc.patient_name = service_request.patient_name
-	doc.patient_sex = service_request.patient_gender
-	doc.patient_age = service_request.patient_age_data
-	doc.inpatient_record = service_request.inpatient_record
-	doc.email = service_request.patient_email
-	doc.mobile = service_request.patient_mobile
+	doc.beneficiary = service_request.beneficiary
+	doc.beneficiary_name = service_request.beneficiary_name
+	doc.beneficiary_sex = service_request.beneficiary_gender
+	doc.beneficiary_age = service_request.beneficiary_age_data
+	doc.inbeneficiary_record = service_request.inbeneficiary_record
+	doc.email = service_request.beneficiary_email
+	doc.mobile = service_request.beneficiary_mobile
 	doc.practitioner = service_request.practitioner
 	doc.requesting_department = service_request.medical_department
 	doc.date = service_request.occurrence_date
@@ -192,10 +192,10 @@ def make_therapy_session(service_request):
 	doc.therapy_type = service_request.template_dn
 	doc.service_request = service_request.name
 	doc.company = service_request.company
-	doc.patient = service_request.patient
-	doc.patient_name = service_request.patient_name
-	doc.gender = service_request.patient_gender
-	doc.patient_age = service_request.patient_age_data
+	doc.beneficiary = service_request.beneficiary
+	doc.beneficiary_name = service_request.beneficiary_name
+	doc.gender = service_request.beneficiary_gender
+	doc.beneficiary_age = service_request.beneficiary_age_data
 	doc.practitioner = service_request.practitioner
 	doc.department = service_request.medical_department
 	doc.start_date = service_request.occurrence_date
@@ -220,7 +220,7 @@ def make_observation(service_request):
 			title=_("Payment Required"),
 		)
 
-	patient = frappe.get_doc("Patient", service_request.patient)
+	beneficiary = frappe.get_doc("Beneficiary", service_request.beneficiary)
 	template = frappe.get_doc("Observation Template", service_request.template_dn)
 
 	sample_collection = ""
@@ -234,7 +234,7 @@ def make_observation(service_request):
 			{
 				"reference_name": service_request.order_group,
 				"docstatus": 0,
-				"patient": service_request.patient,
+				"beneficiary": service_request.beneficiary,
 			},
 		)
 
@@ -242,7 +242,7 @@ def make_observation(service_request):
 		if exist_sample_collection:
 			sample_collection = frappe.get_doc("Sample Collection", exist_sample_collection)
 		else:
-			sample_collection = create_sample_collection(patient, service_request)
+			sample_collection = create_sample_collection(beneficiary, service_request)
 
 		# parent
 		observation = create_observation(service_request)
@@ -255,9 +255,9 @@ def make_observation(service_request):
 		if len(non_sample_reqd_component_obs) > 0:
 			for comp in non_sample_reqd_component_obs:
 				add_observation(
-					patient=service_request.patient,
+					beneficiary=service_request.beneficiary,
 					template=comp,
-					doc="Patient Encounter",
+					doc="Beneficiary Encounter",
 					docname=service_request.order_group,
 					parent=observation.name,
 				)
@@ -313,7 +313,7 @@ def make_observation(service_request):
 				)
 				sample_collection.save(ignore_permissions=True)
 			else:
-				sample_collection = create_sample_collection(patient, service_request, template)
+				sample_collection = create_sample_collection(beneficiary, service_request, template)
 				sample_collection.save(ignore_permissions=True)
 		else:
 			observation = create_observation(service_request)
@@ -330,11 +330,11 @@ def make_observation(service_request):
 		return observation.name, "Observation"
 
 
-def create_sample_collection(patient, service_request, template=None):
+def create_sample_collection(beneficiary, service_request, template=None):
 	sample_collection = frappe.new_doc("Sample Collection")
-	sample_collection.patient = patient.name
-	sample_collection.patient_age = patient.get_age()
-	sample_collection.patient_sex = patient.sex
+	sample_collection.beneficiary = beneficiary.name
+	sample_collection.beneficiary_age = beneficiary.get_age()
+	sample_collection.beneficiary_sex = beneficiary.sex
 	sample_collection.company = service_request.company
 	sample_collection.reference_doc = service_request.source_doc
 	sample_collection.reference_name = service_request.order_group
@@ -360,9 +360,9 @@ def create_sample_collection(patient, service_request, template=None):
 def create_observation(service_request):
 	doc = frappe.new_doc("Observation")
 	doc.posting_datetime = now_datetime()
-	doc.patient = service_request.patient
+	doc.beneficiary = service_request.beneficiary
 	doc.observation_template = service_request.template_dn
-	doc.reference_doctype = "Patient Encounter"
+	doc.reference_doctype = "Beneficiary Encounter"
 	doc.reference_docname = service_request.order_group
 	doc.service_request = service_request.name
 	doc.insert()
@@ -372,7 +372,7 @@ def create_observation(service_request):
 def insert_diagnostic_report(doc, sample_collection=None):
 	diagnostic_report = frappe.new_doc("Diagnostic Report")
 	diagnostic_report.company = doc.company
-	diagnostic_report.patient = doc.patient
+	diagnostic_report.beneficiary = doc.beneficiary
 	diagnostic_report.ref_doctype = doc.source_doc
 	diagnostic_report.docname = doc.order_group
 	diagnostic_report.practitioner = doc.practitioner

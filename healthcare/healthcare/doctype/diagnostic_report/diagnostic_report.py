@@ -21,12 +21,12 @@ class DiagnosticReport(Document):
 
 	def set_age(self):
 		if not self.age:
-			patient_doc = frappe.get_doc("Patient", self.patient)
-			if patient_doc.dob:
-				self.age = patient_doc.calculate_age(self.reference_posting_date).get("age_in_string")
+			beneficiary_doc = frappe.get_doc("Beneficiary", self.beneficiary)
+			if beneficiary_doc.dob:
+				self.age = beneficiary_doc.calculate_age(self.reference_posting_date).get("age_in_string")
 
 	def set_title(self):
-		self.title = f"{self.patient_name} - {self.age or ''} {self.gender}"
+		self.title = f"{self.beneficiary_name} - {self.age or ''} {self.gender}"
 
 	def set_reference_details(self):
 		if self.ref_doctype == "Sales Invoice" and self.docname:

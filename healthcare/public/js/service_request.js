@@ -11,13 +11,13 @@ frappe.ui.form.on(cur_frm.doctype, { // nosemgrep
 			return {
 				filters: {
 					'docstatus': 1,
-					'patient': frm.doc.patient,
+					'beneficiary': frm.doc.beneficiary,
 					'practitioner': frm.doc.ordered_by
 				}
 			};
 		});
 
-		frm.set_query('patient', function () {
+		frm.set_query('beneficiary', function () {
 			return {
 				filters: {
 					'status': 'Active'
@@ -125,23 +125,23 @@ frappe.ui.form.on(cur_frm.doctype, { // nosemgrep
 		}, __('Reason for Cancellation'), __('Submit'));
 	},
 
-    patient: function(frm) {
-		if (!frm.doc.patient) {
+    beneficiary: function(frm) {
+		if (!frm.doc.beneficiary) {
 			frm.set_values ({
-				'patient_name': '',
+				'beneficiary_name': '',
 				'gender': '',
-				'patient_age': '',
+				'beneficiary_age': '',
 				'mobile': '',
 				'email': '',
-				'inpatient_record': '',
-				'inpatient_status': '',
+				'inbeneficiary_record': '',
+				'inbeneficiary_status': '',
 			});
 		}
 	},
 
     birth_date: function(frm) {
 		let age_str = calculate_age(frm.doc.birth_date);
-		frm.set_value('patient_age', age_str);
+		frm.set_value('beneficiary_age', age_str);
 	}
 });
 

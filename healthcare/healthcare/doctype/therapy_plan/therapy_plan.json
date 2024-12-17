@@ -7,8 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "patient",
-  "patient_name",
+  "beneficiary",
+  "beneficiary_name",
   "invoiced",
   "column_break_4",
   "company",
@@ -25,11 +25,11 @@
  ],
  "fields": [
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "reqd": 1
   },
   {
@@ -58,14 +58,14 @@
    "options": "HLC-THP-.YYYY.-"
   },
   {
-   "fetch_from": "patient.patient_name",
-   "fieldname": "patient_name",
+   "fetch_from": "beneficiary.beneficiary_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Patient Name",
+   "label": "Beneficiary Name",
    "read_only": 1
   },
   {
-   "default": "{patient_name}",
+   "default": "{beneficiary_name}",
    "fieldname": "title",
    "fieldtype": "Data",
    "hidden": 1,
@@ -112,6 +112,7 @@
    "reqd": 1
   },
   {
+   "default": "Default Support Sessions",
    "fieldname": "therapy_plan_template",
    "fieldtype": "Link",
    "label": "Therapy Plan Template",
@@ -129,7 +130,7 @@
   }
  ],
  "links": [],
- "modified": "2020-11-04 18:13:13.564999",
+ "modified": "2024-12-17 14:24:28.501542",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Therapy Plan",
@@ -171,9 +172,10 @@
   }
  ],
  "quick_entry": 1,
- "search_fields": "patient",
+ "search_fields": "beneficiary",
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "patient",
+ "states": [],
+ "title_field": "beneficiary",
  "track_changes": 1
 }

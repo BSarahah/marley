@@ -62,13 +62,13 @@ class ClinicalProcedure(Document):
 			)
 
 		if self.appointment:
-			frappe.db.set_value("Patient Appointment", self.appointment, "status", "Closed")
+			frappe.db.set_value("Beneficiary Appointment", self.appointment, "status", "Closed")
 
 		if self.procedure_template:
 			template = frappe.get_doc("Clinical Procedure Template", self.procedure_template)
 			if template.sample:
-				patient = frappe.get_doc("Patient", self.patient)
-				sample_collection = create_sample_doc(template, patient, None, self.company)
+				beneficiary = frappe.get_doc("Beneficiary", self.beneficiary)
+				sample_collection = create_sample_doc(template, beneficiary, None, self.company)
 				self.db_set("sample", sample_collection.name)
 
 		self.reload()
@@ -97,8 +97,8 @@ class ClinicalProcedure(Document):
 
 		template_doc = frappe.get_doc("Clinical Procedure Template", self.procedure_template)
 		if template_doc.sample:
-			patient = frappe.get_doc("Patient", self.patient)
-			sample_collection = create_sample_doc(template_doc, patient, None, self.company)
+			beneficiary = frappe.get_doc("Beneficiary", self.beneficiary)
+			sample_collection = create_sample_doc(template_doc, beneficiary, None, self.company)
 			self.db_set("sample", sample_collection.name)
 			self.reload()
 
@@ -112,7 +112,7 @@ class ClinicalProcedure(Document):
 			self.status = "Cancelled"
 
 	def set_title(self):
-		self.title = _("{0} - {1}").format(self.patient_name or self.patient, self.procedure_template)[
+		self.title = _("{0} - {1}").format(self.beneficiary_name or self.beneficiary, self.procedure_template)[
 			:100
 		]
 
@@ -124,7 +124,7 @@ class ClinicalProcedure(Document):
 		if self.items:
 			consumable_total_amount = 0
 			consumption_details = False
-			customer = frappe.db.get_value("Patient", self.patient, "customer")
+			customer = frappe.db.get_value("Beneficiary", self.beneficiary, "customer")
 			if customer:
 				for item in self.items:
 					if item.invoice_separately_as_consumables:
@@ -161,7 +161,7 @@ class ClinicalProcedure(Document):
 					)
 			else:
 				frappe.throw(
-					_("Please set Customer in Patient {0}").format(frappe.bold(self.patient)),
+					_("Please set Customer in Beneficiary {0}").format(frappe.bold(self.beneficiary)),
 					title=_("Customer Not Found"),
 				)
 
@@ -320,16 +320,16 @@ def make_procedure(source_name, target_doc=None):
 			set_stock_items(target, source.procedure_template, "Clinical Procedure Template")
 
 	doc = get_mapped_doc(
-		"Patient Appointment",
+		"Beneficiary Appointment",
 		source_name,
 		{
-			"Patient Appointment": {
+			"Beneficiary Appointment": {
 				"doctype": "Clinical Procedure",
 				"field_map": [
 					["appointment", "name"],
-					["patient", "patient"],
-					["patient_age", "patient_age"],
-					["patient_sex", "patient_sex"],
+					["beneficiary", "beneficiary"],
+					["beneficiary_age", "beneficiary_age"],
+					["beneficiary_sex", "beneficiary_sex"],
 					["procedure_template", "procedure_template"],
 					["prescription", "procedure_prescription"],
 					["practitioner", "practitioner"],
@@ -351,14 +351,14 @@ def make_procedure(source_name, target_doc=None):
 
 
 @frappe.whitelist()
-def get_procedure_prescribed(patient, encounter=False):
+def get_procedure_prescribed(beneficiary, encounter=False):
 	hso = frappe.qb.DocType("Service Request")
 	return (
 		frappe.qb.from_(hso)
 		.select(
 			hso.template_dn, hso.order_group, hso.billing_status, hso.practitioner, hso.order_date, hso.name
 		)
-		.where(hso.patient == patient)
+		.where(hso.beneficiary == beneficiary)
 		.where(hso.status != "completed-Request Status")
 		.where(hso.template_dt == "Clinical Procedure Template")
 		.orderby(hso.creation, order=frappe.qb.desc)

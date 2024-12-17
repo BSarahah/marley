@@ -14,8 +14,8 @@ from healthcare.healthcare.doctype.observation_template.test_observation_templat
 	create_grouped_observation_template,
 	create_observation_template,
 )
-from healthcare.healthcare.doctype.patient_appointment.test_patient_appointment import (
-	create_patient,
+from healthcare.healthcare.doctype.beneficiary_appointment.test_beneficiary_appointment import (
+	create_beneficiary,
 )
 
 
@@ -24,15 +24,15 @@ class TestObservation(FrappeTestCase):
 		frappe.db.set_single_value("Healthcare Settings", "create_observation_on_si_submit", 1)
 		obs_name = "Total Cholesterol"
 		# observation without sample
-		patient = create_patient()
+		beneficiary = create_beneficiary()
 		obs_template = create_observation_template(obs_name)
-		sales_invoice = create_sales_invoice(patient, obs_name)
+		sales_invoice = create_sales_invoice(beneficiary, obs_name)
 		self.assertTrue(
 			frappe.db.exists(
 				"Observation",
 				{
 					"observation_template": obs_template.name,
-					"patient": patient,
+					"beneficiary": beneficiary,
 					"sales_invoice": sales_invoice.name,
 				},
 			)
@@ -43,21 +43,21 @@ class TestObservation(FrappeTestCase):
 				"Diagnostic Report",
 				{
 					"docname": sales_invoice.name,
-					"patient": patient,
+					"beneficiary": beneficiary,
 				},
 			)
 		)
 
 		# observation with sample
-		patient = create_patient()
+		beneficiary = create_beneficiary()
 		idx = 1
 		obs_template = create_observation_template(obs_name, idx, True)
-		sales_invoice = create_sales_invoice(patient, obs_name + str(idx))
+		sales_invoice = create_sales_invoice(beneficiary, obs_name + str(idx))
 
 		sample_docname = frappe.db.exists(
 			"Sample Collection",
 			{
-				"patient": patient,
+				"beneficiary": beneficiary,
 			},
 		)
 
@@ -77,25 +77,25 @@ class TestObservation(FrappeTestCase):
 				"Diagnostic Report",
 				{
 					"docname": sales_invoice.name,
-					"patient": patient,
+					"beneficiary": beneficiary,
 				},
 			)
 		)
 
 	def test_has_component_observation_from_invoice(self):
 		frappe.db.set_single_value("Healthcare Settings", "create_observation_on_si_submit", 1)
-		patient = create_patient()
+		beneficiary = create_beneficiary()
 		idx = 2
 		obs_name = "Complete Blood Count (CBC)"
 		obs_template = create_grouped_observation_template(obs_name, idx)
-		sales_invoice = create_sales_invoice(patient, obs_name + str(idx))
+		sales_invoice = create_sales_invoice(beneficiary, obs_name + str(idx))
 		# parent_observation
 		self.assertTrue(
 			frappe.db.exists(
 				"Observation",
 				{
 					"observation_template": obs_template.name,
-					"patient": patient,
+					"beneficiary": beneficiary,
 					"sales_invoice": sales_invoice.name,
 				},
 			)
@@ -107,7 +107,7 @@ class TestObservation(FrappeTestCase):
 				"Observation",
 				{
 					"observation_template": obs_name + str(idx + 1),
-					"patient": patient,
+					"beneficiary": beneficiary,
 					"sales_invoice": sales_invoice.name,
 				},
 			)
@@ -118,16 +118,16 @@ class TestObservation(FrappeTestCase):
 				"Diagnostic Report",
 				{
 					"docname": sales_invoice.name,
-					"patient": patient,
+					"beneficiary": beneficiary,
 				},
 			)
 		)
 
 		# observation with sample
-		patient = create_patient()
+		beneficiary = create_beneficiary()
 		idx = 4  # since 3 is selected in previous grouped test
 		obs_template = create_grouped_observation_template(obs_name, idx, True)
-		sales_invoice = create_sales_invoice(patient, obs_name + str(idx))
+		sales_invoice = create_sales_invoice(beneficiary, obs_name + str(idx))
 
 		# parent_observation
 		self.assertTrue(
@@ -135,7 +135,7 @@ class TestObservation(FrappeTestCase):
 				"Observation",
 				{
 					"observation_template": obs_template.name,
-					"patient": patient,
+					"beneficiary": beneficiary,
 					"sales_invoice": sales_invoice.name,
 				},
 			)
@@ -144,7 +144,7 @@ class TestObservation(FrappeTestCase):
 		sample_docname = frappe.db.exists(
 			"Sample Collection",
 			{
-				"patient": patient,
+				"beneficiary": beneficiary,
 			},
 		)
 
@@ -164,20 +164,20 @@ class TestObservation(FrappeTestCase):
 				"Diagnostic Report",
 				{
 					"docname": sales_invoice.name,
-					"patient": patient,
+					"beneficiary": beneficiary,
 				},
 			)
 		)
 
 	def test_observation_from_encounter(self):
 		observation_template = create_observation_template("Total Cholesterol")
-		patient = create_patient()
-		encounter = create_patient_encounter(patient, observation_template.name)
+		beneficiary = create_beneficiary()
+		encounter = create_beneficiary_encounter(beneficiary, observation_template.name)
 		self.assertTrue(
 			frappe.db.exists(
 				"Service Request",
 				{
-					"patient": patient,
+					"beneficiary": beneficiary,
 					"template_dn": observation_template.name,
 					"order_group": encounter.name,
 				},
@@ -185,10 +185,10 @@ class TestObservation(FrappeTestCase):
 		)
 
 
-def create_sales_invoice(patient, item):
+def create_sales_invoice(beneficiary, item):
 	sales_invoice = frappe.new_doc("Sales Invoice")
-	sales_invoice.patient = patient
-	sales_invoice.customer = frappe.db.get_value("Patient", patient, "customer")
+	sales_invoice.beneficiary = beneficiary
+	sales_invoice.customer = frappe.db.get_value("Beneficiary", beneficiary, "customer")
 	sales_invoice.due_date = getdate()
 	sales_invoice.company = "_Test Company"
 	sales_invoice.debit_to = get_receivable_account("_Test Company")
@@ -213,14 +213,14 @@ def create_sales_invoice(patient, item):
 	return sales_invoice
 
 
-def create_patient_encounter(patient, observation_template):
-	patient_encounter = frappe.new_doc("Patient Encounter")
-	patient_encounter.patient = patient
-	patient_encounter.practitioner = create_practitioner()
-	patient_encounter.encounter_date = getdate()
-	patient_encounter.encounter_time = nowtime()
+def create_beneficiary_encounter(beneficiary, observation_template):
+	beneficiary_encounter = frappe.new_doc("Beneficiary Encounter")
+	beneficiary_encounter.beneficiary = beneficiary
+	beneficiary_encounter.practitioner = create_practitioner()
+	beneficiary_encounter.encounter_date = getdate()
+	beneficiary_encounter.encounter_time = nowtime()
 
-	patient_encounter.append("lab_test_prescription", {"observation_template": observation_template})
+	beneficiary_encounter.append("lab_test_prescription", {"observation_template": observation_template})
 
-	patient_encounter.submit()
-	return patient_encounter
+	beneficiary_encounter.submit()
+	return beneficiary_encounter

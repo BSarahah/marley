@@ -25,11 +25,11 @@
   "expected_result_time",
   "printed_on",
   "sb_first",
-  "patient",
-  "patient_name",
-  "patient_age",
-  "patient_sex",
-  "inpatient_record",
+  "beneficiary",
+  "beneficiary_name",
+  "beneficiary_age",
+  "beneficiary_sex",
+  "inbeneficiary_record",
   "report_preference",
   "email",
   "mobile",
@@ -81,11 +81,11 @@
  ],
  "fields": [
   {
-   "fetch_from": "patient.inpatient_record",
-   "fieldname": "inpatient_record",
+   "fetch_from": "beneficiary.inbeneficiary_record",
+   "fieldname": "inbeneficiary_record",
    "fieldtype": "Link",
-   "label": "Inpatient Record",
-   "options": "Inpatient Record",
+   "label": "Inbeneficiary Record",
+   "options": "Inbeneficiary Record",
    "read_only": 1
   },
   {
@@ -107,27 +107,27 @@
    "search_index": 1
   },
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "in_standard_filter": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "reqd": 1,
    "search_index": 1,
    "set_only_once": 1
   },
   {
-   "fetch_from": "patient.patient_name",
-   "fieldname": "patient_name",
+   "fetch_from": "beneficiary.beneficiary_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Patient Name",
+   "label": "Beneficiary Name",
    "print_hide": 1,
    "read_only": 1,
    "report_hide": 1
   },
   {
-   "fieldname": "patient_age",
+   "fieldname": "beneficiary_age",
    "fieldtype": "Data",
    "label": "Age",
    "print_hide": 1,
@@ -135,7 +135,7 @@
    "report_hide": 1
   },
   {
-   "fieldname": "patient_sex",
+   "fieldname": "beneficiary_sex",
    "fieldtype": "Link",
    "label": "Gender",
    "options": "Gender",
@@ -156,7 +156,7 @@
    "search_index": 1
   },
   {
-   "fetch_from": "patient.email",
+   "fetch_from": "beneficiary.email",
    "fieldname": "email",
    "fieldtype": "Data",
    "hidden": 1,
@@ -166,7 +166,7 @@
    "report_hide": 1
   },
   {
-   "fetch_from": "patient.mobile",
+   "fetch_from": "beneficiary.mobile",
    "fieldname": "mobile",
    "fieldtype": "Data",
    "hidden": 1,
@@ -305,7 +305,7 @@
    "report_hide": 1
   },
   {
-   "fetch_from": "patient.report_preference",
+   "fetch_from": "beneficiary.report_preference",
    "fieldname": "report_preference",
    "fieldtype": "Data",
    "label": "Report Preference",
@@ -688,12 +688,12 @@
   }
  ],
  "restrict_to_domain": "Healthcare",
- "search_fields": "patient,practitioner,lab_test_name,sample",
+ "search_fields": "beneficiary,practitioner,lab_test_name,sample",
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "patient",
+ "title_field": "beneficiary",
  "track_changes": 1,
  "track_seen": 1
 }

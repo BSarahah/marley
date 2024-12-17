@@ -8,7 +8,7 @@ from frappe.tests.utils import FrappeTestCase
 
 class TestHealthcarePractitioner(FrappeTestCase):
 	def test_practitioner_mandatory_charges(self):
-		fieldnames = ["op_consulting_charge", "inpatient_visit_charge"]
+		fieldnames = ["op_consulting_charge", "inbeneficiary_visit_charge"]
 		for idx, fieldname in enumerate(fieldnames):
 			item_fieldname = f"{fieldname}_item"
 			charge_fieldname = f"{fieldname}"
@@ -24,7 +24,7 @@ class TestHealthcarePractitioner(FrappeTestCase):
 			self.assertRaises(frappe.MandatoryError, practitioner.insert)
 
 	def test_practitioner_service_item(self):
-		fieldnames = ["op_consulting_charge", "inpatient_visit_charge"]
+		fieldnames = ["op_consulting_charge", "inbeneficiary_visit_charge"]
 		for idx, fieldname in enumerate(fieldnames):
 			item_fieldname = f"{fieldname}_item"
 			charge_fieldname = f"{fieldname}"

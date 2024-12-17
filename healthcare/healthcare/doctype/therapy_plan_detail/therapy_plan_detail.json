@@ -10,7 +10,7 @@
   "sessions_completed",
   "service_request",
   "section_break_hywn",
-  "patient_care_type",
+  "beneficiary_care_type",
   "column_break_eawy",
   "intent",
   "priority"
@@ -44,10 +44,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "patient_care_type",
+   "fieldname": "beneficiary_care_type",
    "fieldtype": "Link",
-   "label": "Patient Care Type",
-   "options": "Patient Care Type"
+   "label": "Beneficiary Care Type",
+   "options": "Beneficiary Care Type"
   },
   {
    "fieldname": "column_break_eawy",

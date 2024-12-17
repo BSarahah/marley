@@ -13,11 +13,11 @@
   "column_break_30",
   "company",
   "section_break_6",
-  "patient",
-  "patient_name",
-  "patient_sex",
-  "patient_age",
-  "inpatient_record",
+  "beneficiary",
+  "beneficiary_name",
+  "beneficiary_sex",
+  "beneficiary_age",
+  "inbeneficiary_record",
   "notes",
   "column_break_7",
   "status",
@@ -48,11 +48,11 @@
  ],
  "fields": [
   {
-   "fetch_from": "patient.inpatient_record",
-   "fieldname": "inpatient_record",
+   "fetch_from": "beneficiary.inbeneficiary_record",
+   "fieldname": "inbeneficiary_record",
    "fieldtype": "Link",
-   "label": "Inpatient Record",
-   "options": "Inpatient Record",
+   "label": "Inbeneficiary Record",
+   "options": "Inbeneficiary Record",
    "read_only": 1
   },
   {
@@ -66,25 +66,25 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Appointment",
-   "options": "Patient Appointment",
+   "options": "Beneficiary Appointment",
    "set_only_once": 1
   },
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "in_standard_filter": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "reqd": 1
   },
   {
-   "fieldname": "patient_age",
+   "fieldname": "beneficiary_age",
    "fieldtype": "Data",
    "label": "Age",
    "read_only": 1
   },
   {
-   "fieldname": "patient_sex",
+   "fieldname": "beneficiary_sex",
    "fieldtype": "Link",
    "label": "Gender",
    "options": "Gender",
@@ -267,9 +267,9 @@
    "label": "More Information"
   },
   {
-   "fieldname": "patient_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Patient Name",
+   "label": "Beneficiary Name",
    "read_only": 1
   },
   {

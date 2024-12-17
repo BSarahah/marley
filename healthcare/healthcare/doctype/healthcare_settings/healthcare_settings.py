@@ -15,8 +15,8 @@ class HealthcareSettings(Document):
 	def validate(self):
 		for key in [
 			"collect_registration_fee",
-			"link_customer_to_patient",
-			"patient_name_by",
+			"link_customer_to_beneficiary",
+			"beneficiary_name_by",
 			"lab_test_approval_required",
 			"create_sample_collection_for_lab_test",
 			"default_medical_code_standard",
@@ -27,8 +27,8 @@ class HealthcareSettings(Document):
 			if self.registration_fee <= 0:
 				frappe.throw(_("Registration Fee cannot be negative or zero"))
 
-		if self.inpatient_visit_charge_item:
-			validate_service_item(self.inpatient_visit_charge_item)
+		if self.inbeneficiary_visit_charge_item:
+			validate_service_item(self.inbeneficiary_visit_charge_item)
 		if self.op_consulting_charge_item:
 			validate_service_item(self.op_consulting_charge_item)
 		if self.clinical_procedure_consumable_item:

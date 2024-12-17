@@ -18,19 +18,19 @@
   "column_break_4",
   "company",
   "status",
-  "patient_detail_section",
-  "patient",
-  "patient_name",
-  "patient_gender",
-  "patient_birth_date",
-  "patient_age_data",
-  "patient_age",
-  "patient_blood_group",
+  "beneficiary_detail_section",
+  "beneficiary",
+  "beneficiary_name",
+  "beneficiary_gender",
+  "beneficiary_birth_date",
+  "beneficiary_age_data",
+  "beneficiary_age",
+  "beneficiary_blood_group",
   "column_break_16",
-  "patient_email",
-  "patient_mobile",
-  "inpatient_record",
-  "inpatient_status",
+  "beneficiary_email",
+  "beneficiary_mobile",
+  "inbeneficiary_record",
+  "inbeneficiary_status",
   "order_source_section",
   "practitioner",
   "practitioner_name",
@@ -98,7 +98,7 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Order Group (Encounter)",
-   "options": "Patient Encounter"
+   "options": "Beneficiary Encounter"
   },
   {
    "fieldname": "column_break_91",
@@ -182,19 +182,19 @@
    "label": "Order Description"
   },
   {
-   "fieldname": "patient",
+   "fieldname": "beneficiary",
    "fieldtype": "Link",
    "in_standard_filter": 1,
-   "label": "Patient",
-   "options": "Patient",
+   "label": "Beneficiary",
+   "options": "Beneficiary",
    "reqd": 1,
    "search_index": 1
   },
   {
-   "fetch_from": "patient.patient_name",
-   "fieldname": "patient_name",
+   "fetch_from": "beneficiary.beneficiary_name",
+   "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Patient Name",
+   "label": "Beneficiary Name",
    "read_only": 1
   },
   {
@@ -238,7 +238,7 @@
    "read_only": 1
   },
   {
-   "fieldname": "patient_age",
+   "fieldname": "beneficiary_age",
    "fieldtype": "Int",
    "hidden": 1,
    "label": "Age",
@@ -274,19 +274,19 @@
    "options": "Item"
   },
   {
-   "fetch_from": "patient.inpatient_record",
-   "fieldname": "inpatient_record",
+   "fetch_from": "beneficiary.inbeneficiary_record",
+   "fieldname": "inbeneficiary_record",
    "fieldtype": "Link",
-   "label": "Inpatient Record",
-   "options": "Inpatient Record",
+   "label": "Inbeneficiary Record",
+   "options": "Inbeneficiary Record",
    "read_only": 1,
    "search_index": 1
   },
   {
-   "fetch_from": "patient.inpatient_status",
-   "fieldname": "inpatient_status",
+   "fetch_from": "beneficiary.inbeneficiary_status",
+   "fieldname": "inbeneficiary_status",
    "fieldtype": "Data",
-   "label": "Inpatient Status",
+   "label": "Inbeneficiary Status",
    "read_only": 1
   },
   {
@@ -296,24 +296,24 @@
    "reqd": 1
   },
   {
-   "fetch_from": "patient.sex",
-   "fieldname": "patient_gender",
+   "fetch_from": "beneficiary.sex",
+   "fieldname": "beneficiary_gender",
    "fieldtype": "Link",
    "label": "Gender",
    "options": "Gender",
    "read_only": 1
   },
   {
-   "fetch_from": "patient.blood_group",
-   "fieldname": "patient_blood_group",
+   "fetch_from": "beneficiary.blood_group",
+   "fieldname": "beneficiary_blood_group",
    "fieldtype": "Select",
    "label": "Blood Group",
    "options": "\nA Positive\nA Negative\nAB Positive\nAB Negative\nB Positive\nB Negative\nO Positive\nO Negative",
    "read_only": 1
   },
   {
-   "fetch_from": "patient.email",
-   "fieldname": "patient_email",
+   "fetch_from": "beneficiary.email",
+   "fieldname": "beneficiary_email",
    "fieldtype": "Data",
    "label": "Email",
    "options": "Email",
@@ -321,8 +321,8 @@
    "search_index": 1
   },
   {
-   "fetch_from": "patient.mobile",
-   "fieldname": "patient_mobile",
+   "fetch_from": "beneficiary.mobile",
+   "fieldname": "beneficiary_mobile",
    "fieldtype": "Data",
    "label": "Mobile",
    "options": "Phone",
@@ -330,17 +330,17 @@
    "search_index": 1
   },
   {
-   "fetch_from": "patient.dob",
-   "fieldname": "patient_birth_date",
+   "fetch_from": "beneficiary.dob",
+   "fieldname": "beneficiary_birth_date",
    "fieldtype": "Date",
    "hidden": 1,
    "label": "Birth Date",
    "read_only": 1
   },
   {
-   "fieldname": "patient_detail_section",
+   "fieldname": "beneficiary_detail_section",
    "fieldtype": "Section Break",
-   "label": "Patient Details"
+   "label": "Beneficiary Details"
   },
   {
    "fieldname": "order_specs_section",
@@ -373,9 +373,9 @@
    "label": "Occurrence Time"
   },
   {
-   "fieldname": "patient_age_data",
+   "fieldname": "beneficiary_age_data",
    "fieldtype": "Data",
-   "label": "Patient Age",
+   "label": "Beneficiary Age",
    "read_only": 1
   },
   {
@@ -516,7 +516,7 @@
   }
  ],
  "restrict_to_domain": "Healthcare",
- "search_fields": "title,patient,order_group,inpatient_record,practitioner,patient_email,patient_mobile",
+ "search_fields": "title,beneficiary,order_group,inbeneficiary_record,practitioner,beneficiary_email,beneficiary_mobile",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

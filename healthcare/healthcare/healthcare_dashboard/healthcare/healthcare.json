@@ -1,10 +1,10 @@
 {
  "cards": [
   {
-   "card": "Total Patients"
+   "card": "Total Beneficiarys"
   },
   {
-   "card": "Total Patients Admitted"
+   "card": "Total Beneficiarys Admitted"
   },
   {
    "card": "Open Appointments"
@@ -15,11 +15,11 @@
  ],
  "charts": [
   {
-   "chart": "Patient Appointments",
+   "chart": "Beneficiary Appointments",
    "width": "Full"
   },
   {
-   "chart": "In-Patient Status",
+   "chart": "In-Beneficiary Status",
    "width": "Half"
   },
   {
@@ -43,7 +43,7 @@
    "width": "Half"
   },
   {
-   "chart": "Department wise Patient Appointments",
+   "chart": "Department wise Beneficiary Appointments",
    "width": "Full"
   }
  ],

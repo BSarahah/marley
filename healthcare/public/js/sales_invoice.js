@@ -3,10 +3,10 @@ frappe.ui.form.on('Sales Invoice', {
 	refresh(frm) {
 		if (frm.doc.docstatus === 0 && !frm.doc.is_return) {
 			frm.add_custom_button(__('Healthcare Services'), function() {
-				frappe.db.get_value("Patient", frm.doc.patient, "customer")
+				frappe.db.get_value("Beneficiary", frm.doc.beneficiary, "customer")
 				.then(r => {
 					let link_customer = null;
-					let msg = "Patient is not linked to a customer. Do you want to link the selected customer to the patient permanently?";
+					let msg = "Beneficiary is not linked to a customer. Do you want to link the selected customer to the beneficiary permanently?";
 					if (r.message.customer){
 						get_healthcare_services_to_invoice(frm, link_customer);
 					} else {
@@ -21,7 +21,7 @@ frappe.ui.form.on('Sales Invoice', {
 				})
 			},__('Get Items From'));
 			frm.add_custom_button(__('Prescriptions'), function() {
-				frappe.db.get_value("Patient", frm.doc.patient, "customer")
+				frappe.db.get_value("Beneficiary", frm.doc.beneficiary, "customer")
 				.then(r => {
 					let link_customer = null;
 					if (r.message.customer){
@@ -40,17 +40,17 @@ frappe.ui.form.on('Sales Invoice', {
 		}
 	},
 
-	patient(frm) {
-		if (frm.doc.patient) {
-			frappe.db.get_value("Patient", frm.doc.patient, "customer")
+	beneficiary(frm) {
+		if (frm.doc.beneficiary) {
+			frappe.db.get_value("Beneficiary", frm.doc.beneficiary, "customer")
 				.then(r => {
 					if (!r.exc && r.message.customer) {
 						frm.set_value("customer", r.message.customer);
 					} else {
 						frappe.show_alert({
 							indicator: "warning",
-							message: __("Patient <b>{0}</b> is not linked to a Customer",
-								[`<a class='bold' href='/app/patient/${frm.doc.patient}'>${frm.doc.patient}</a>`]
+							message: __("Beneficiary <b>{0}</b> is not linked to a Customer",
+								[`<a class='bold' href='/app/beneficiary/${frm.doc.beneficiary}'>${frm.doc.beneficiary}</a>`]
 							),
 						});
 						frm.set_value("customer", "");
@@ -84,15 +84,15 @@ var set_service_unit = function (frm) {
 
 var get_healthcare_services_to_invoice = function(frm, link_customer) {
 	var me = this;
-	let selected_patient = '';
+	let selected_beneficiary = '';
 	var dialog = new frappe.ui.Dialog({
 		title: __("Get Items from Healthcare Services"),
 		fields:[
 			{
 				fieldtype: 'Link',
-				options: 'Patient',
-				label: 'Patient',
-				fieldname: "patient",
+				options: 'Beneficiary',
+				label: 'Beneficiary',
+				fieldname: "beneficiary",
 				reqd: true
 			},
 			{ fieldtype: 'Section Break' },
@@ -103,19 +103,19 @@ var get_healthcare_services_to_invoice = function(frm, link_customer) {
 	var $results;
 	var $placeholder;
 	dialog.set_values({
-		'patient': frm.doc.patient
+		'beneficiary': frm.doc.beneficiary
 	});
-	dialog.fields_dict["patient"].df.onchange = () => {
-		var patient = dialog.fields_dict.patient.input.value;
-		if(patient && patient!=selected_patient){
-			selected_patient = patient;
+	dialog.fields_dict["beneficiary"].df.onchange = () => {
+		var beneficiary = dialog.fields_dict.beneficiary.input.value;
+		if(beneficiary && beneficiary!=selected_beneficiary){
+			selected_beneficiary = beneficiary;
 			var method = "healthcare.healthcare.utils.get_healthcare_services_to_invoice";
-			var args = {patient: patient, customer: frm.doc.customer, company: frm.doc.company, link_customer: link_customer};
+			var args = {beneficiary: beneficiary, customer: frm.doc.customer, company: frm.doc.company, link_customer: link_customer};
 			var columns = (["service", "reference_name", "reference_type"]);
 			get_healthcare_items(frm, true, $results, $placeholder, method, args, columns);
 		}
-		else if(!patient){
-			selected_patient = '';
+		else if(!beneficiary){
+			selected_beneficiary = '';
 			$results.empty();
 			$results.append($placeholder);
 		}
@@ -190,7 +190,7 @@ var set_primary_action= function(frm, dialog, $results, invoice_healthcare_servi
 		let checked_values = get_checked_values($results);
 		if(checked_values.length > 0){
 			if(invoice_healthcare_services) {
-				frm.set_value("patient", dialog.fields_dict.patient.input.value);
+				frm.set_value("beneficiary", dialog.fields_dict.beneficiary.input.value);
 			}
 			add_to_item_line(frm, checked_values, invoice_healthcare_services);
 			dialog.hide();
@@ -248,13 +248,13 @@ var get_drugs_to_invoice = function(frm, link_customer) {
 	var dialog = new frappe.ui.Dialog({
 		title: __("Get Items from Medication Requests"),
 		fields:[
-			{ fieldtype: 'Link', options: 'Patient', label: 'Patient', fieldname: "patient", reqd: true },
-			{ fieldtype: 'Link', options: 'Patient Encounter', label: 'Patient Encounter', fieldname: "encounter", reqd: true,
+			{ fieldtype: 'Link', options: 'Beneficiary', label: 'Beneficiary', fieldname: "beneficiary", reqd: true },
+			{ fieldtype: 'Link', options: 'Beneficiary Encounter', label: 'Beneficiary Encounter', fieldname: "encounter", reqd: true,
 				description:'Quantity will be calculated only for items which has "Nos" as UoM. You may change as required for each invoice item.',
 				get_query: function(doc) {
 					return {
 						filters: {
-							patient: dialog.get_value("patient"),
+							beneficiary: dialog.get_value("beneficiary"),
 							company: frm.doc.company,
 							docstatus: 1
 						}
@@ -269,7 +269,7 @@ var get_drugs_to_invoice = function(frm, link_customer) {
 	var $results;
 	var $placeholder;
 	dialog.set_values({
-		'patient': frm.doc.patient,
+		'beneficiary': frm.doc.beneficiary,
 		'encounter': ""
 	});
 	dialog.fields_dict["encounter"].df.onchange = () => {

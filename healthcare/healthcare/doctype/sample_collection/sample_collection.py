@@ -89,13 +89,13 @@ def insert_observation(selected, sample_collection, component_observations=None,
 		sample_col_doc = frappe.db.get_value(
 			"Sample Collection",
 			sample_collection,
-			["reference_name", "patient", "referring_practitioner"],
+			["reference_name", "beneficiary", "referring_practitioner"],
 			as_dict=1,
 		)
 		selected = json.loads(selected)
 		if component_observations and len(component_observations) > 0:
 			component_observations = json.loads(component_observations)
-		comp_obs_ref = create_specimen(sample_col_doc.get("patient"), selected, component_observations)
+		comp_obs_ref = create_specimen(sample_col_doc.get("beneficiary"), selected, component_observations)
 		for i, obs in enumerate(selected):
 			parent_observation = obs.get("component_observation_parent")
 
@@ -108,7 +108,7 @@ def insert_observation(selected, sample_collection, component_observations=None,
 				# non has_component templates
 				if not obs.get("has_component") or obs.get("has_component") == 0:
 					observation = add_observation(
-						patient=sample_col_doc.get("patient"),
+						beneficiary=sample_col_doc.get("beneficiary"),
 						template=obs.get("observation_template"),
 						doc="Sample Collection",
 						docname=sample_collection,
@@ -137,7 +137,7 @@ def insert_observation(selected, sample_collection, component_observations=None,
 						component_observations = json.loads(obs.get("component_observations"))
 						for j, comp in enumerate(component_observations):
 							observation = add_observation(
-								patient=sample_col_doc.get("patient"),
+								beneficiary=sample_col_doc.get("beneficiary"),
 								template=comp.get("observation_template"),
 								doc="Sample Collection",
 								docname=sample_collection,
@@ -206,7 +206,7 @@ def insert_observation(selected, sample_collection, component_observations=None,
 	)
 
 
-def create_specimen(patient, selected, component_observations):
+def create_specimen(beneficiary, selected, component_observations):
 	groups = {}
 	# to group by
 	for sel in selected:
@@ -234,7 +234,7 @@ def create_specimen(patient, selected, component_observations):
 	for gr in groups:
 		specimen = frappe.new_doc("Specimen")
 		specimen.received_time = now_datetime()
-		specimen.patient = patient
+		specimen.beneficiary = beneficiary
 		specimen.specimen_type = groups[gr][0].get("sample_type")
 		specimen.save()
 		for sub_grp in groups[gr]:

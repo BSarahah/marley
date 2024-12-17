@@ -10,7 +10,7 @@ from frappe.utils import getdate
 
 class ServiceRequestController(Document):
 	def validate(self):
-		self.set_patient_age()
+		self.set_beneficiary_age()
 		self.set_order_details()
 		self.set_title()
 
@@ -46,10 +46,10 @@ class ServiceRequestController(Document):
 			if self.status == "active-Medication Request Status":
 				self.db_set("status", "cancelled-Medication Request Status")
 
-	def set_patient_age(self):
-		patient = frappe.get_doc("Patient", self.patient)
-		self.patient_age_data = patient.get_age()
-		self.patient_age = dateutil.relativedelta.relativedelta(getdate(), getdate(patient.dob))
+	def set_beneficiary_age(self):
+		beneficiary = frappe.get_doc("Beneficiary", self.beneficiary)
+		self.beneficiary_age_data = beneficiary.get_age()
+		self.beneficiary_age = dateutil.relativedelta.relativedelta(getdate(), getdate(beneficiary.dob))
 
 
 @frappe.whitelist()
