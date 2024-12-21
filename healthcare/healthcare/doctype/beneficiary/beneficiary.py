@@ -103,12 +103,12 @@ class Beneficiary(Document):
 			self.language = frappe.db.get_single_value("System Settings", "language")
 
 	def create_website_user(self):
-		users = frappe.db.get_all(
-			"User",
-			fields=["email", "mobile_no"],
-			or_filters={"email": self.email, "mobile_no": self.mobile},
-		)
-		if users and users[0]:
+	#	users = frappe.db.get_all(
+	#		"User",
+	#		fields=["email", "mobile_no"],
+	#		or_filters={"email": self.email, "mobile_no": self.mobile},
+	#	)
+		if frappe.db.exists("User", self.email):
 			frappe.throw(
 				_(
 					"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User"
