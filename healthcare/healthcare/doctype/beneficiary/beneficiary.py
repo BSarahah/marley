@@ -112,7 +112,7 @@ class Beneficiary(Document):
 			frappe.throw(
 				_(
 					"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User"
-				).format(frappe.bold(users[0].email), frappe.bold(users[0].mobile_no)),
+				).format(frappe.bold(self.email), frappe.bold(self.mobile_no)),
 				frappe.DuplicateEntryError,
 			)
 
