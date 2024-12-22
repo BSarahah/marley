@@ -103,16 +103,16 @@ class Beneficiary(Document):
 			self.language = frappe.db.get_single_value("System Settings", "language")
 
 	def create_website_user(self):
-	#	users = frappe.db.get_all(
-	#		"User",
-	#		fields=["email", "mobile_no"],
-	#		or_filters={"email": self.email, "mobile_no": self.mobile},
-	#	)
-		if frappe.db.exists("User", self.email) == self.email:
+		users = frappe.db.get_all(
+			"User",
+			fields=["email", "mobile_no"],
+			or_filters={"email": self.email, "mobile_no": self.mobile},
+		)
+		if users and users[0]:
 			frappe.throw(
 				_(
-					"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User. Debug {}"
-				).format(frappe.bold(self.email), frappe.bold(self.mobile_no), frappe.db.exists("User", self.email)),
+					"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User"
+				).format(frappe.bold(users[0].email), frappe.bold(users[0].mobile_no)),
 				frappe.DuplicateEntryError,
 			)
 

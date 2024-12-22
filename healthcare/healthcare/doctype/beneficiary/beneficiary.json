@@ -159,7 +159,7 @@
    "in_list_view": 1,
    "label": "Status",
    "no_copy": 1,
-   "options": "Accepted\nRejected\nPending\nFlagged",
+   "options": "Active\nRejected\nPending\nFlagged",
    "print_hide": 1,
    "read_only": 1
   },
