@@ -30,7 +30,7 @@ class Beneficiary(Document):
 		"""Load address and contacts in `__onload`"""
 		load_address_and_contact(self)
 		self.load_dashboard_info()
-
+        
 	def validate(self):
 		self.set_full_name()
 		self.flags.is_new_doc = self.is_new()
@@ -111,8 +111,8 @@ class Beneficiary(Document):
 		if frappe.db.exists("User", self.email):
 			frappe.throw(
 				_(
-					"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User"
-				).format(frappe.bold(self.email), frappe.bold(self.mobile_no)),
+					"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User. Debug {}"
+				).format(frappe.bold(self.email), frappe.bold(self.mobile_no), frappe.db.exists("User", self.email)),
 				frappe.DuplicateEntryError,
 			)
 
