@@ -108,13 +108,13 @@ class Beneficiary(Document):
 	#		fields=["email", "mobile_no"],
 	#		or_filters={"email": self.email, "mobile_no": self.mobile},
 	#	)
-		if frappe.db.exists("User", self.email):
-			frappe.throw(
-				_(
-					"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User. Debug {}"
-				).format(frappe.bold(self.email), frappe.bold(self.mobile_no), frappe.db.exists("User", self.email)),
-				frappe.DuplicateEntryError,
-			)
+	#	if frappe.db.exists("User", self.email):
+	#		frappe.throw(
+	#			_(
+	#				"User exists with Email {}, Mobile {}<br>Please check email / mobile or disable 'Invite as User' to skip creating User. Debug {}"
+	#			).format(frappe.bold(self.email), frappe.bold(self.mobile_no), frappe.db.exists("User", self.email)),
+	#			frappe.DuplicateEntryError,
+	#		)
 
 		user = frappe.get_doc(
 			{
